@@ -1,35 +1,45 @@
-import Hero from "./web/Hero";
+import Hero from "./Hero";
 import React from "react";
-import Contact from "./web/Contact";
-
-import Resources from "./web/Resources";
-import Header from "./web/Header";
-import Platforms from "./web/Platforms";
-import Footer from "./web/Footer";
+import Contact from "./Contact";
+import Resources from "./Resources";
+import Header from "./Header";
+import Platforms from "./Platforms";
+import Footer from "./Footer";
 
 export default function Home(): React.JSX.Element {
   return (
-    <div className="bg-black overflow-hidden w-full relative">
-      <div className="absolute top-[1527px] left-[1262px] w-[505px] h-[505px] bg-[#cd010170] rounded-[252.5px] blur-[214.8px] pointer-events-none" />
+    <div className="bg-black overflow-hidden w-full min-h-screen relative">
+      {/* Background blur effects */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[40%] right-[20%] w-[505px] h-[505px] bg-[var(--blur-red)] rounded-[252.5px] blur-[214.8px] opacity-50" />
+        <div className="absolute top-[70%] left-[2%] w-[505px] h-[505px] bg-[var(--blur-red)] rounded-[252.5px] blur-[214.8px] opacity-50" />
+        <div className="absolute top-[85%] right-[10%] w-[505px] h-[505px] bg-[var(--blur-yellow)] rounded-[252.5px] blur-[214.8px] opacity-50" />
+      </div>
 
-      <div className="absolute top-[3005px] left-[19px] w-[505px] h-[505px] bg-[#cd010170] rounded-[252.5px] blur-[214.8px] pointer-events-none" />
+      {/* Hero section background */}
+      <div className="relative z-10">
+        <div className="absolute top-0 left-0 w-full h-[897px] bg-[var(--header-bg)] pointer-events-none" />
 
-      <div className="absolute top-[3594px] left-[1407px] w-[505px] h-[505px] bg-[#f2c1314c] rounded-[252.5px] blur-[214.8px] pointer-events-none" />
+        <div className="relative w-full flex flex-col">
+          <Header />
+          <div className="bg-[var(--header-bg)] pb-24 min-h-[897px] flex items-center">
+            <div className="container mx-auto px-4 md:px-[220px] w-full">
+              <Hero />
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div className="absolute top-[95px] left-0 w-full h-[897px] bg-[#000400] pointer-events-none" />
-
-      {/* <img
-        className="absolute top-[95px] left-[969px] w-[951px] h-[896px] aspect-[1.06] object-cover pointer-events-none"
-        alt="Whatsapp image"
-        src="/whatsapp-image-2025-12-02-at-10-26-30-PM-1.png"
-      /> */}
-
-      <div className="relative w-full">
-        <Header />
-        <Hero />
-        <Resources/>
-        <Platforms />
-        <Contact />
+      <div className="relative z-10 flex flex-col">
+        <div className="container mx-auto w-full">
+          <Resources />
+        </div>
+        <div className="container mx-auto w-full">
+          <Platforms />
+        </div>
+        <div className="container mx-auto w-full">
+          <Contact />
+        </div>
         <Footer />
       </div>
     </div>

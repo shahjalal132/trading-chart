@@ -20,7 +20,7 @@ const socialIcons = [
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#0a0a0a] text-white py-12">
+    <footer className="w-full bg-[var(--footer-bg)] text-white py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-5">
@@ -45,12 +45,11 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-1 flex justify-center">
-            <div className="relative w-[3px] h-full">
+            <div className="flex flex-col items-center h-full">
               <Separator
                 orientation="vertical"
-                className="absolute left-0 w-px h-full bg-white/20"
+                className="w-px h-full bg-white/20"
               />
-              <div className="absolute top-[158px] left-0 w-[3px] h-[106px] bg-gradient-to-b from-purple-500 to-pink-500" />
             </div>
           </div>
 
@@ -76,12 +75,11 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-1 flex justify-center">
-            <div className="relative w-[3px] h-full">
+            <div className="flex flex-col items-center h-full">
               <Separator
                 orientation="vertical"
-                className="absolute left-0 w-px h-full bg-white/20"
+                className="w-px h-full bg-white/20"
               />
-              <div className="absolute top-[228px] left-0 w-[3px] h-[106px] bg-gradient-to-b from-purple-500 to-pink-500" />
             </div>
           </div>
 

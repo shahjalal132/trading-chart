@@ -1,17 +1,16 @@
 import { Button } from '@/components/ui/button';
+import React from 'react';
 
 export default function Hero(): React.JSX.Element {
     const buttons = [
         {
             text: 'Join Us',
-            gradient:
-                'bg-[linear-gradient(180deg,rgba(24,129,0,1)_0%,rgba(1,25,3,1)_100%)]',
+            gradientType: 'green',
             width: 'w-[121px]',
         },
         {
             text: 'Learn More',
-            gradient:
-                'bg-[linear-gradient(180deg,rgba(237,0,0,1)_0%,rgba(37,1,1,1)_100%)]',
+            gradientType: 'red',
             width: 'w-[152px]',
         },
     ];
@@ -38,7 +37,12 @@ export default function Hero(): React.JSX.Element {
                 {buttons.map((button, index) => (
                     <Button
                         key={index}
-                        className={`${button.width} h-auto px-[30px] py-[21px] ${button.gradient} rounded-2xl border border-solid border-[#ffffff61] [font-family:'Poppins-SemiBold',Helvetica] text-base leading-[26px] font-semibold tracking-[0] whitespace-nowrap text-white hover:opacity-90`}
+                        className={`${button.width} h-auto px-[30px] py-[21px] rounded-2xl border border-solid border-[var(--border-medium)] [font-family:'Poppins-SemiBold',Helvetica] text-base leading-[26px] font-semibold tracking-[0] whitespace-nowrap text-white hover:opacity-90`}
+                        style={{ 
+                            background: button.gradientType === 'green' 
+                                ? `linear-gradient(180deg, var(--gradient-green-start) 0%, var(--gradient-green-end) 100%)`
+                                : `linear-gradient(180deg, var(--gradient-red-start) 0%, var(--gradient-red-end) 100%)`
+                        }}
                     >
                         {button.text}
                     </Button>

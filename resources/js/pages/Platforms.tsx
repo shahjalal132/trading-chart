@@ -28,7 +28,7 @@ const platformsData = [
 
 export default function Platforms(): React.JSX.Element {
   return (
-    <section className="w-full flex flex-col items-center gap-[43px] py-8">
+    <section className="w-full flex flex-col items-center gap-[43px] py-16 md:py-24 px-4">
       <header className="flex flex-col items-center gap-[43px]">
         <h2 className="[font-family:'Helvetica_Neue-Bold',Helvetica] font-bold text-white text-[80px] text-center tracking-[0] leading-[93px] whitespace-nowrap">
           Best Trading Platforms
@@ -40,11 +40,11 @@ export default function Platforms(): React.JSX.Element {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-[26px] w-full max-w-[1206px]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-[26px] w-full max-w-[1206px] mx-auto">
         {platformsData.map((platform, index) => (
           <Card
             key={index}
-            className="bg-[#121212] rounded-[19px] border-[3px] border-solid border-[#ffffff36] overflow-hidden"
+            className="bg-[var(--card-dark)] rounded-[19px] border-[3px] border-solid border-[var(--border-light)] overflow-hidden"
           >
             <CardContent className="flex flex-col items-center gap-6 p-6 pt-[60px] pb-[40px]">
               <h3 className="[font-family:'Helvetica_Neue-Bold',Helvetica] font-bold text-white text-[44px] text-center tracking-[0] leading-[38px] whitespace-nowrap">
@@ -66,23 +66,25 @@ export default function Platforms(): React.JSX.Element {
                   />
                 )}
                 {platform.logoType === "composite" && (
-                  <div className="relative w-[146px] h-[113px] aspect-[1.29]">
-                    <img
-                      className="absolute w-[98.61%] h-[64.29%] top-[14.29%] left-0"
-                      alt="Vector"
-                      src={
-                        (platform.logo as { vector9: string; vector10: string })
-                          .vector9
-                      }
-                    />
-                    <img
-                      className="absolute w-[22.22%] h-[28.57%] top-[14.29%] left-[44.44%]"
-                      alt="Vector"
-                      src={
-                        (platform.logo as { vector9: string; vector10: string })
-                          .vector10
-                      }
-                    />
+                  <div className="relative w-[146px] h-[113px] aspect-[1.29] flex items-center justify-center">
+                    <div className="relative w-full h-full">
+                      <img
+                        className="absolute w-[98.61%] h-[64.29%] top-[14.29%] left-0"
+                        alt="Vector"
+                        src={
+                          (platform.logo as { vector9: string; vector10: string })
+                            .vector9
+                        }
+                      />
+                      <img
+                        className="absolute w-[22.22%] h-[28.57%] top-[14.29%] left-[44.44%]"
+                        alt="Vector"
+                        src={
+                          (platform.logo as { vector9: string; vector10: string })
+                            .vector10
+                        }
+                      />
+                    </div>
                   </div>
                 )}
               </div>
@@ -91,7 +93,7 @@ export default function Platforms(): React.JSX.Element {
                 {platform.description}
               </p>
 
-              <Button className="h-auto px-[26px] py-4 bg-[linear-gradient(180deg,rgba(237,0,0,1)_0%,rgba(37,1,1,1)_100%)] rounded-2xl border border-solid border-[#ffffff61] [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-white text-base tracking-[0] leading-[26px] hover:opacity-90">
+              <Button className="h-auto px-[26px] py-4 rounded-2xl border border-solid border-[var(--border-medium)] [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-white text-base tracking-[0] leading-[26px] hover:opacity-90" style={{ background: `linear-gradient(180deg, var(--gradient-red-start) 0%, var(--gradient-red-end) 100%)` }}>
                 Sign Up Now
               </Button>
             </CardContent>

@@ -18,7 +18,7 @@ const navigationItems = [
 
 export default function Header(): React.JSX.Element {
   return (
-    <header className="w-full h-[95px] flex items-center bg-[#000400] px-[220px]">
+    <header className="w-full h-[95px] flex items-center bg-[var(--header-bg)] px-4 md:px-[220px]">
       <div className="flex items-center gap-[9.2px]">
         <img
           className="w-[73.59px] h-[82.25px]"
@@ -51,10 +51,10 @@ export default function Header(): React.JSX.Element {
       </NavigationMenu>
 
       <div className="flex gap-3.5">
-        <Button className="w-[102px] h-[43px] bg-[linear-gradient(180deg,rgba(24,129,0,1)_0%,rgba(1,25,3,1)_100%)] rounded-2xl border border-solid border-[#ffffff61] [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-white text-base tracking-[0] leading-[26px] hover:opacity-90 transition-opacity">
+        <Button className="w-[102px] h-[43px] rounded-2xl border border-solid border-[var(--border-medium)] [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-white text-base tracking-[0] leading-[26px] hover:opacity-90 transition-opacity" style={{ background: `linear-gradient(180deg, var(--gradient-green-start) 0%, var(--gradient-green-end) 100%)` }}>
           Log In
         </Button>
-        <Button className="w-[116px] h-[43px] bg-[linear-gradient(180deg,rgba(237,0,0,1)_0%,rgba(37,1,1,1)_100%)] rounded-2xl border border-solid border-[#ffffff61] [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-white text-base tracking-[0] leading-[26px] hover:opacity-90 transition-opacity">
+        <Button className="w-[116px] h-[43px] rounded-2xl border border-solid border-[var(--border-medium)] [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-white text-base tracking-[0] leading-[26px] hover:opacity-90 transition-opacity" style={{ background: `linear-gradient(180deg, var(--gradient-red-start) 0%, var(--gradient-red-end) 100%)` }}>
           Sign Up
         </Button>
       </div>

@@ -59,6 +59,22 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    /* Trading app specific colors */
+    --color-header-bg: var(--header-bg);
+    --color-card-dark: var(--card-dark);
+    --color-border-light: var(--border-light);
+    --color-border-medium: var(--border-medium);
+    --color-dot-light: var(--dot-light);
+    --color-text-muted: var(--text-muted);
+    --color-footer-bg: var(--footer-bg);
+    --color-accent-yellow: var(--accent-yellow);
+    --color-blur-red: var(--blur-red);
+    --color-blur-yellow: var(--blur-yellow);
+    --color-gradient-green-start: var(--gradient-green-start);
+    --color-gradient-green-end: var(--gradient-green-end);
+    --color-gradient-red-start: var(--gradient-red-start);
+    --color-gradient-red-end: var(--gradient-red-end);
 }
 
 :root {
@@ -95,6 +111,22 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.87 0 0);
+
+    /* Trading app specific colors */
+    --header-bg: #000400;
+    --card-dark: #121212;
+    --border-light: rgba(255, 255, 255, 0.22);
+    --border-medium: rgba(255, 255, 255, 0.38);
+    --dot-light: rgba(255, 255, 255, 0.44);
+    --text-muted: rgba(255, 255, 255, 0.82);
+    --footer-bg: #0a0a0a;
+    --accent-yellow: #fbd051;
+    --blur-red: rgba(205, 1, 1, 0.44);
+    --blur-yellow: rgba(242, 193, 49, 0.3);
+    --gradient-green-start: rgba(24, 129, 0, 1);
+    --gradient-green-end: rgba(1, 25, 3, 1);
+    --gradient-red-start: rgba(237, 0, 0, 1);
+    --gradient-red-end: rgba(37, 1, 1, 1);
 }
 
 .dark {
@@ -130,6 +162,22 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(0.269 0 0);
     --sidebar-ring: oklch(0.439 0 0);
+
+    /* Trading app specific colors (same for dark mode) */
+    --header-bg: #000400;
+    --card-dark: #121212;
+    --border-light: rgba(255, 255, 255, 0.22);
+    --border-medium: rgba(255, 255, 255, 0.38);
+    --dot-light: rgba(255, 255, 255, 0.44);
+    --text-muted: rgba(255, 255, 255, 0.82);
+    --footer-bg: #0a0a0a;
+    --accent-yellow: #fbd051;
+    --blur-red: rgba(205, 1, 1, 0.44);
+    --blur-yellow: rgba(242, 193, 49, 0.3);
+    --gradient-green-start: rgba(24, 129, 0, 1);
+    --gradient-green-end: rgba(1, 25, 3, 1);
+    --gradient-red-start: rgba(237, 0, 0, 1);
+    --gradient-red-end: rgba(37, 1, 1, 1);
 }
 
 @layer base {

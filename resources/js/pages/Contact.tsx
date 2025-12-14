@@ -44,8 +44,8 @@ const socialMediaData = [
 
 export default function Contact(): React.JSX.Element {
     return (
-        <section className="w-full px-4 py-12">
-            <div className="mx-auto max-w-[1206px]">
+        <section className="w-full px-4 py-16 md:py-24">
+            <div className="mx-auto max-w-[1206px] w-full">
                 <div className="mb-[66px] flex flex-col items-center gap-[43px]">
                     <h2 className="text-center [font-family:'Helvetica_Neue-Bold',Helvetica] text-[80px] leading-[93px] font-bold tracking-[0] whitespace-nowrap text-white">
                         Connect With Us
@@ -61,7 +61,7 @@ export default function Contact(): React.JSX.Element {
                     {socialMediaData.map((platform, index) => (
                         <Card
                             key={index}
-                            className="overflow-hidden rounded-[19px] border-[3px] border-solid border-[#ffffff36] bg-[#121212]"
+                            className="overflow-hidden rounded-[19px] border-[3px] border-solid border-[var(--border-light)] bg-[var(--card-dark)]"
                         >
                             <CardContent className="flex h-full flex-col p-[39px]">
                                 <div className="mb-[28px] flex gap-[15px]">
@@ -74,18 +74,18 @@ export default function Contact(): React.JSX.Element {
                                             {platform.name}
                                         </h3>
 
-                                        <p className="[font-family:'DM_Sans-Regular',Helvetica] text-sm leading-6 font-normal tracking-[0] whitespace-nowrap text-[#fbd051]">
+                                        <p className="[font-family:'DM_Sans-Regular',Helvetica] text-sm leading-6 font-normal tracking-[0] whitespace-nowrap text-[var(--accent-yellow)]">
                                             {platform.url}
                                         </p>
                                     </div>
                                 </div>
 
-                                <p className="mb-[43px] [font-family:'DM_Sans-Regular',Helvetica] text-sm leading-6 font-normal tracking-[0] text-[#ffffffd1]">
+                                <p className="mb-[43px] [font-family:'DM_Sans-Regular',Helvetica] text-sm leading-6 font-normal tracking-[0] text-[var(--text-muted)]">
                                     Subscribe to our official channel to watch
                                     live trades, analysis.
                                 </p>
 
-                                <Button className="h-auto rounded-2xl border border-solid border-[#ffffff61] bg-[linear-gradient(180deg,rgba(237,0,0,1)_0%,rgba(37,1,1,1)_100%)] px-[26px] py-3 [font-family:'Poppins-SemiBold',Helvetica] text-[15px] leading-[26px] font-semibold tracking-[0] text-white hover:opacity-90">
+                                <Button className="h-auto rounded-2xl border border-solid border-[var(--border-medium)] px-[26px] py-3 [font-family:'Poppins-SemiBold',Helvetica] text-[15px] leading-[26px] font-semibold tracking-[0] text-white hover:opacity-90" style={{ background: `linear-gradient(180deg, var(--gradient-red-start) 0%, var(--gradient-red-end) 100%)` }}>
                                     {platform.buttonText}
                                 </Button>
                             </CardContent>
