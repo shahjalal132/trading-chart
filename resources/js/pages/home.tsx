@@ -7,7 +7,7 @@ import Header from "./web/Header";
 import Platforms from "./web/Platforms";
 import Footer from "./web/Footer";
 
-const HomeEnglish = (): React.JSX.Element => {
+export default function Home(): React.JSX.Element {
   return (
     <div className="bg-black overflow-hidden w-full relative">
       <div className="absolute top-[1527px] left-[1262px] w-[505px] h-[505px] bg-[#cd010170] rounded-[252.5px] blur-[214.8px] pointer-events-none" />
@@ -36,4 +36,3 @@ const HomeEnglish = (): React.JSX.Element => {
   );
 };
 
-export default HomeEnglish;
