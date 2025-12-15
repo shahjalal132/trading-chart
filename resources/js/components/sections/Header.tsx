@@ -7,31 +7,33 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ChevronDown } from "lucide-react";
 import React from "react";
+import AppLogo from "../AppLogo";
+import AppLogoIcon from "../app-logo-icon";
 
-const navigationItems = [
-  { label: "Home", href: "#" },
-  { label: "About Us", href: "#" },
-  { label: "Services", href: "#", hasDropdown: true },
-  { label: "Platforms", href: "#" },
-  { label: "Contacts", href: "#" },
+interface NavItem {
+  label: string;
+  href: string;
+  hasDropdown?: boolean;
+}
+
+const services: NavItem[] = [
+  { label: "Service 1", href: "#" },
+  { label: "Service 2", href: "#" },
+  { label: "Service 3", href: "#" },
+];
+
+const navigationItems: NavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about-us" },
+  { label: "Services", href: "/services", hasDropdown: true },
+  { label: "Platforms", href: "/platforms" },
+  { label: "Contacts", href: "/contacts" },
 ];
 
 export default function Header(): React.JSX.Element {
   return (
     <header className="w-full h-[95px] flex items-center bg-[var(--header-bg)] px-4 md:px-[220px]">
-      <div className="flex items-center gap-[9.2px]">
-        <img
-          className="w-[73.59px] h-[82.25px]"
-          alt="Trading platform logo icon"
-          src="/placeholder-logo-icon.png"
-        />
-        <img
-          className="w-[157.2px] h-[41.56px]"
-          alt="Trading chart logo"
-          src="/placeholder-logo-text.png"
-        />
-      </div>
-
+      <AppLogo src="/assets/images/logo.png" />
       <NavigationMenu className="flex-1 mx-auto max-w-[475.19px]">
         <NavigationMenuList className="flex gap-[31px]">
           {navigationItems.map((item, index) => (
