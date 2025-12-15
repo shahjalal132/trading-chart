@@ -1,10 +1,10 @@
-import Hero from "./Hero";
+import Hero from "@/components/sections/Hero";
 import React from "react";
-import Contact from "./Contact";
-import Resources from "./Resources";
-import Header from "./Header";
-import Platforms from "./Platforms";
-import Footer from "./Footer";
+import Contact from "@/components/sections/Contact";
+import Resources from "@/components/sections/Resources";
+import Header from "@/components/sections/Header";
+import Platforms from "@/components/sections/Platforms";
+import Footer from "@/components/sections/Footer";
 
 export default function Home(): React.JSX.Element {
   return (
