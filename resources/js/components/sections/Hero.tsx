@@ -1,23 +1,22 @@
-import { Button } from '@/components/ui/button';
 import React from 'react';
+import GradientButton from '../GradientButton';
 
 export default function Hero(): React.JSX.Element {
-
     const buttons = [
         {
             text: 'Join Us',
-            gradientType: 'green',
-            width: 'w-[121px]',
+            variant: 'green' as const,
+            href: '/join',
         },
         {
             text: 'Learn More',
-            gradientType: 'red',
-            width: 'w-[152px]',
+            variant: 'red' as const,
+            href: '/learn',
         },
     ];
 
     return (
-        <section className="flex w-full flex-col bg-red-500">
+        <section className="flex w-full flex-col">
             <div className="flex w-full flex-col gap-10">
                 <h1 className="[font-family:'Helvetica_Neue-Bold',Helvetica] text-[110px] leading-[93px] font-bold tracking-[0] whitespace-nowrap text-white">
                     Welcome to
@@ -36,17 +35,14 @@ export default function Hero(): React.JSX.Element {
 
             <div className="mt-12 flex gap-7">
                 {buttons.map((button, index) => (
-                    <Button
+                    <GradientButton
                         key={index}
-                        className={`${button.width} h-auto px-[30px] py-[21px] rounded-2xl border border-solid border-[var(--border-medium)] [font-family:'Poppins-SemiBold',Helvetica] text-base leading-[26px] font-semibold tracking-[0] whitespace-nowrap text-white hover:opacity-90`}
-                        style={{ 
-                            background: button.gradientType === 'green' 
-                                ? `linear-gradient(180deg, var(--gradient-green-start) 0%, var(--gradient-green-end) 100%)`
-                                : `linear-gradient(180deg, var(--gradient-red-start) 0%, var(--gradient-red-end) 100%)`
-                        }}
+                        variant={button.variant}
+                        href={button.href}
+                        className="p-5"
                     >
                         {button.text}
-                    </Button>
+                    </GradientButton>
                 ))}
             </div>
         </section>

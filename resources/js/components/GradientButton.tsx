@@ -1,5 +1,4 @@
-import { Button } from '@/components/ui/button';
-import { Link } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { cn } from '@/lib/utils';
 
 interface GradientButtonProps {
@@ -20,22 +19,24 @@ export default function GradientButton({
             ? `linear-gradient(180deg, var(--gradient-green-start) 0%, var(--gradient-green-end) 100%)`
             : `linear-gradient(180deg, var(--gradient-red-start) 0%, var(--gradient-red-end) 100%)`;
 
-    const widthClass = variant === 'green' ? 'w-[102px]' : 'w-[116px]';
+    const handleClick = () => {
+        router.visit(href);
+    };
 
     return (
-        <Button
-            asChild
+        <button
+            type="button"
+            onClick={handleClick}
             className={cn(
-                'h-[43px] rounded-2xl border border-solid border-[var(--border-medium)] [font-family:\'Poppins-SemiBold\',Helvetica] text-base leading-[26px] font-semibold tracking-[0] text-white transition-opacity hover:opacity-90 hover:cursor-pointer',
-                widthClass,
+                'inline-flex items-center justify-center rounded-2xl border border-[var(--border-medium)] text-white transition-opacity hover:opacity-90',
                 className
             )}
             style={{
                 background: gradientStyle,
             }}
         >
-            <Link href={href}>{children}</Link>
-        </Button>
+            {children}
+        </button>
     );
 }
 

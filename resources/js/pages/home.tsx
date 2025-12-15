@@ -26,7 +26,7 @@ export default function Home(): React.JSX.Element {
                             backgroundImage: "url('/assets/images/hero-bg.jpg')",
                         }}
                     >
-                        <div className="container mx-auto w-full px-4 md:px-[220px]">
+                        <div className="container mx-auto w-full px-4 md:px-40">
                             <Hero />
                         </div>
                     </div>
