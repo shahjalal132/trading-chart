@@ -7,12 +7,12 @@ import Marketing from '@/components/sections/Marketing';
 import Resources from '@/components/sections/Resources';
 import Trade from '@/components/sections/Trade';
 import Video from '@/components/sections/Video';
-import PublicLayout from '@/layouts/public-layout';
+import WebLayout from '@/layouts/web-layout';
 import React from 'react';
 
 export default function Home(): React.JSX.Element {
     return (
-        <PublicLayout>
+        <WebLayout>
             {/* Hero section background */}
             <div className="relative z-10">
                 <div
@@ -53,6 +53,6 @@ export default function Home(): React.JSX.Element {
                     <Community />
                 </div>
             </div>
-        </PublicLayout>
+        </WebLayout>
     );
 }
