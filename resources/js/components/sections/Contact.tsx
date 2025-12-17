@@ -5,37 +5,37 @@ import React from 'react';
 
 const socialMediaData = [
     {
-        icon: <Youtube className="h-[61px] w-[61px]" />,
+        icon: '/assets/icons/youtube.png',
         name: 'YouTube',
         url: 'YouTube.com/tradingchart',
         buttonText: 'Follow On YouTube',
     },
     {
-        icon: <img src="" alt="TikTok" className="h-14 w-14 object-cover" />,
+        icon: '/assets/icons/tiktok.png',
         name: 'TikTok',
         url: 'tiktok.com/tradingchart',
         buttonText: 'Follow On TikTok',
     },
     {
-        icon: <Facebook className="h-[55px] w-[55px]" />,
+        icon: '/assets/icons/facebook.png',
         name: 'Facebook',
         url: 'facebook.com/tradingchart',
         buttonText: 'Follow On Facebook',
     },
     {
-        icon: <Instagram className="h-[55px] w-[55px]" />,
+        icon: '/assets/icons/instagram.png',
         name: 'Instagram',
         url: 'instagram.com/tradingchart',
         buttonText: 'Follow On Instagram',
     },
     {
-        icon: <MessageCircle className="h-[55px] w-[55px]" />,
+        icon: '/assets/icons/telegram.png',
         name: 'Telegram',
         url: 'telegram.com/tradingchart',
         buttonText: 'Follow On Telegram',
     },
     {
-        icon: <MessageCircle className="h-[55px] w-[55px]" />,
+        icon: '/assets/icons/whatsapp.png',
         name: 'WhatsApp',
         url: 'whatsapp.com/tradingchart',
         buttonText: 'Follow On WhatsApp',
@@ -44,8 +44,8 @@ const socialMediaData = [
 
 export default function Contact(): React.JSX.Element {
     return (
-        <section className="w-full px-4 py-16 md:py-24">
-            <div className="mx-auto max-w-[1206px] w-full">
+        <section className="w-full px-15">
+            <div className="container mx-auto">
                 <div className="mb-[66px] flex flex-col items-center gap-[43px]">
                     <h2 className="text-center [font-family:'Helvetica_Neue-Bold',Helvetica] text-[80px] leading-[93px] font-bold tracking-[0] whitespace-nowrap text-white">
                         Connect With Us
@@ -66,10 +66,11 @@ export default function Contact(): React.JSX.Element {
                             <CardContent className="flex h-full flex-col p-[39px]">
                                 <div className="mb-[28px] flex gap-[15px]">
                                     <div className="flex-shrink-0">
-                                        {platform.icon}
+                                        {/* social media icon */}
+                                        <img src={platform.icon} alt={platform.name} className="h-14 w-14 object-cover" />
                                     </div>
 
-                                    <div className="mt-1 flex flex-col gap-[21px]">
+                                    <div className="mt-1 flex flex-col gap-2">
                                         <h3 className="[font-family:'Helvetica_Neue-Bold',Helvetica] text-[32px] leading-[38px] font-bold tracking-[0] whitespace-nowrap text-white">
                                             {platform.name}
                                         </h3>
@@ -85,7 +86,7 @@ export default function Contact(): React.JSX.Element {
                                     live trades, analysis.
                                 </p>
 
-                                <Button className="h-auto rounded-2xl border border-solid border-[var(--border-medium)] px-[26px] py-3 [font-family:'Poppins-SemiBold',Helvetica] text-[15px] leading-[26px] font-semibold tracking-[0] text-white hover:opacity-90" style={{ background: `linear-gradient(180deg, var(--gradient-red-start) 0%, var(--gradient-red-end) 100%)` }}>
+                                <Button className="h-auto max-w-[200px] rounded-2xl border border-solid border-[var(--border-medium)] py-2 [font-family:'Poppins-SemiBold',Helvetica] text-[15px] leading-[26px] font-semibold tracking-[0] text-white hover:opacity-90" style={{ background: `linear-gradient(180deg, var(--gradient-red-start) 0%, var(--gradient-red-end) 100%)` }}>
                                     {platform.buttonText}
                                 </Button>
                             </CardContent>
