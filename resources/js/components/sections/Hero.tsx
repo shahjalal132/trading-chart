@@ -69,17 +69,17 @@ export default function Hero(): React.JSX.Element {
 
     return (
         <section ref={sectionRef} className="flex w-full flex-col">
-            <div className="flex w-full flex-col gap-10">
+            <div className="flex w-full flex-col gap-5 md:gap-10">
                 <h1
                     ref={h1Ref}
-                    className="[font-family:'Helvetica_Neue-Bold',Helvetica] text-[110px] leading-[93px] font-bold tracking-[0] whitespace-nowrap text-white"
+                    className="[font-family:'Helvetica_Neue-Bold',Helvetica] text-[40px] md:text-[80px] lg:text-[110px] leading-tight md:leading-[60px] lg:leading-[93px] font-bold tracking-[0] text-white whitespace-nowrap"
                 >
                     Welcome to
                 </h1>
 
                 <h2
                     ref={h2Ref}
-                    className="[font-family:'Helvetica_Neue-Heavy',Helvetica] text-[130px] leading-[93px] font-normal tracking-[-1.30px] whitespace-nowrap text-white"
+                    className="[font-family:'Helvetica_Neue-Heavy',Helvetica] text-[50px] md:text-[90px] lg:text-[130px] leading-tight md:leading-[70px] lg:leading-[93px] font-normal tracking-[-1.30px] text-white whitespace-nowrap"
                 >
                     Trading Chart
                 </h2>

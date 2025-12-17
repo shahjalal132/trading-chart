@@ -16,7 +16,7 @@ export default function AppLogo({
             className={cn('flex items-center gap-[9.2px]', className)}
         >
             <img
-                className="h-[41.56px] w-[157.2px]"
+                className="h-[42px] w-[158px]"
                 alt="Trading chart logo"
                 src={src}
             />
