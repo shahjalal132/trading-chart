@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ResourcesData {
   title: string;
@@ -60,8 +64,78 @@ const resourcesData: ResourcesData[] = [
 ];
 
 export default function Resources() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    // Wait for cards to be rendered
+    const validCards = cardsRef.current.filter((card) => card !== null);
+    if (validCards.length === 0) return;
+
+    // Set initial states
+    gsap.set(validCards, { opacity: 0, y: 100 });
+
+    // Scroll reveal animation
+    gsap.to(validCards, {
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 80%',
+      },
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      stagger: 0.15,
+      ease: 'power2.out',
+    });
+
+    // Hover effects for each card
+    cardsRef.current.forEach((card) => {
+      if (!card) return;
+
+      const handleMouseEnter = () => {
+        gsap.to(card, {
+          scale: 1.05,
+          y: -10,
+          boxShadow: '0 25.6px 57.6px 0 rgba(237, 0, 0, 0.4), 0 4.8px 14.4px 0 rgba(237, 0, 0, 0.3), 0 0 0 1px rgba(237, 0, 0, 0.2)',
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      };
+
+      const handleMouseLeave = () => {
+        gsap.to(card, {
+          scale: 1,
+          y: 0,
+          boxShadow: 'none',
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      };
+
+      card.addEventListener('mouseenter', handleMouseEnter);
+      card.addEventListener('mouseleave', handleMouseLeave);
+
+      return () => {
+        card.removeEventListener('mouseenter', handleMouseEnter);
+        card.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    });
+
+    // Refresh ScrollTrigger after setup
+    ScrollTrigger.refresh();
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   return (
-    <section className="w-full min-h-screen flex items-center justify-center px-4">
+    <section
+      ref={sectionRef}
+      className="w-full min-h-screen flex items-center justify-center px-4"
+    >
       <div className="w-full max-w-[1621px] flex flex-col items-center">
         <h1 className="[font-family:'Helvetica_Neue-Bold',Helvetica] font-bold text-white text-5xl md:text-[80px] text-center tracking-[0] leading-tight mb-10">
           Your Resources
@@ -75,7 +149,10 @@ export default function Resources() {
           {resourcesData.map((resource, index) => (
             <Card
               key={index}
-              className="bg-[#121212] rounded-[19px] border-[3px] border-solid border-[#ffffff36] flex flex-col"
+              ref={(el) => {
+                cardsRef.current[index] = el;
+              }}
+              className="bg-[#121212] rounded-[19px] border-[3px] border-solid border-[#ffffff36] flex flex-col cursor-pointer"
             >
               <CardContent className="flex flex-col p-6 flex-1">
                 <h2 className="[font-family:'Helvetica_Neue-Bold',Helvetica] font-bold text-white text-2xl md:text-[32px] tracking-[0] leading-[38px] mb-8 text-center md:text-left">

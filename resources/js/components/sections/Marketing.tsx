@@ -9,9 +9,9 @@ export default function Marketing() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-25 items-center">
           <div className="flex justify-center lg:justify-start">
             <img
-              className="w-full max-w-[693px] h-auto"
+              className="w-full h-auto rounded-[19px] object-cover"
               alt="Mask group"
-              src="/assets/images/marketing.png"
+              src="/assets/images/community.png"
             />
           </div>
 

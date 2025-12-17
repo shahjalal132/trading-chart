@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 export interface SocialMediaData {
     icon: string;
@@ -17,15 +18,71 @@ interface SocialMediaCardProps {
 export default function SocialMediaCard({
     platform,
 }: SocialMediaCardProps) {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const iconRef = useRef<HTMLImageElement>(null);
+
+    useEffect(() => {
+        const card = cardRef.current;
+        const icon = iconRef.current;
+        if (!card || !icon) return;
+
+        const handleMouseEnter = () => {
+            gsap.to(card, {
+                scale: 1.05,
+                y: -10,
+                rotationY: 5,
+                boxShadow: '0 25.6px 57.6px 0 rgba(237, 0, 0, 0.4), 0 4.8px 14.4px 0 rgba(237, 0, 0, 0.3), 0 0 0 1px rgba(237, 0, 0, 0.2)',
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+            gsap.to(icon, {
+                scale: 1.2,
+                rotation: 360,
+                duration: 0.5,
+                ease: 'back.out(1.7)',
+            });
+        };
+
+        const handleMouseLeave = () => {
+            gsap.to(card, {
+                scale: 1,
+                y: 0,
+                rotationY: 0,
+                boxShadow: 'none',
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+            gsap.to(icon, {
+                scale: 1,
+                rotation: 0,
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+        };
+
+        card.addEventListener('mouseenter', handleMouseEnter);
+        card.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            card.removeEventListener('mouseenter', handleMouseEnter);
+            card.removeEventListener('mouseleave', handleMouseLeave);
+        };
+    }, []);
+
     return (
-        <Card className="overflow-hidden rounded-[19px] border-[3px] border-solid border-[var(--border-light)] bg-[var(--card-dark)]">
+        <Card
+            ref={cardRef}
+            className="overflow-hidden rounded-[19px] border-[3px] border-solid border-[var(--border-light)] bg-[var(--card-dark)] cursor-pointer"
+            style={{ transformStyle: 'preserve-3d' }}
+        >
             <CardContent className="flex h-full flex-col p-[39px]">
                 <div className="mb-[28px] flex gap-[15px]">
                     <div className="flex-shrink-0">
                         <img
+                            ref={iconRef}
                             src={platform.icon}
                             alt={platform.name}
-                            className="h-14 w-14 object-cover"
+                            className="h-14 w-14 object-cover transition-transform duration-300"
                         />
                     </div>
 

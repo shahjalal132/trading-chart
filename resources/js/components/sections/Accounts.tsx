@@ -1,5 +1,10 @@
 import GradientButton from '../GradientButton';
 import TradingAccountCard, { type TradingAccount } from './TradingAccountCard';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const tradingAccounts: TradingAccount[] = [
     {
@@ -25,12 +30,66 @@ const tradingAccounts: TradingAccount[] = [
 ];
 
 export default function Accounts() {
+    const sectionRef = useRef<HTMLElement>(null);
+    const leftContentRef = useRef<HTMLDivElement>(null);
+    const cardsRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!sectionRef.current) return;
+
+        const leftChildren = leftContentRef.current?.children;
+        const cardChildren = cardsRef.current?.children;
+
+        if (leftChildren && leftChildren.length > 0) {
+            // Set initial states
+            gsap.set(Array.from(leftChildren), { opacity: 0, x: -100 });
+
+            // Animate left content
+            gsap.to(Array.from(leftChildren), {
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: 'top 80%',
+                },
+                x: 0,
+                opacity: 1,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power2.out',
+            });
+        }
+
+        if (cardChildren && cardChildren.length > 0) {
+            // Set initial states
+            gsap.set(Array.from(cardChildren), { opacity: 0, x: 100 });
+
+            // Animate cards
+            gsap.to(Array.from(cardChildren), {
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: 'top 80%',
+                },
+                x: 0,
+                opacity: 1,
+                duration: 1,
+                stagger: 0.15,
+                ease: 'power2.out',
+            });
+        }
+
+        // Refresh ScrollTrigger after setup
+        ScrollTrigger.refresh();
+
+        return () => {
+            ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        };
+    }, []);
+
     return (
-        <section className="w-full px-4">
+        <section ref={sectionRef} className="w-full px-4">
             <div className="container mx-auto">
                 <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
                     {/* Left Content */}
-                    <div className="flex flex-1 flex-col gap-8">
+                    <div ref={leftContentRef} className="flex flex-1 flex-col gap-8">
                         <h2 className="[font-family:'Helvetica_Neue-Bold',Helvetica] text-5xl font-bold text-white md:text-6xl md:leading-[85px] lg:text-7xl">
                             Create Your <br /> Trading Accounts
                         </h2>
@@ -59,7 +118,7 @@ export default function Accounts() {
 
                     {/* Right Grid - Trading Accounts */}
                     <div className="flex-1">
-                        <div className="grid grid-cols-2 gap-6">
+                        <div ref={cardsRef} className="grid grid-cols-2 gap-6">
                             {tradingAccounts.map((account, index) => (
                                 <TradingAccountCard
                                     key={index}

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import GradientButton from '../GradientButton';
+import { gsap } from 'gsap';
 
 export interface TradingAccount {
     name: string;
@@ -15,14 +16,65 @@ interface TradingAccountCardProps {
 export default function TradingAccountCard({
     account,
 }: TradingAccountCardProps) {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const logoRef = useRef<HTMLImageElement>(null);
+
+    useEffect(() => {
+        const card = cardRef.current;
+        const logo = logoRef.current;
+        if (!card || !logo) return;
+
+        const handleMouseEnter = () => {
+            gsap.to(card, {
+                scale: 1.05,
+                y: -10,
+                boxShadow: '0 25.6px 57.6px 0 rgba(237, 0, 0, 0.4), 0 4.8px 14.4px 0 rgba(237, 0, 0, 0.3), 0 0 0 1px rgba(237, 0, 0, 0.2)',
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+            gsap.to(logo, {
+                scale: 1.15,
+                duration: 0.3,
+                ease: 'back.out(1.7)',
+            });
+        };
+
+        const handleMouseLeave = () => {
+            gsap.to(card, {
+                scale: 1,
+                y: 0,
+                boxShadow: 'none',
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+            gsap.to(logo, {
+                scale: 1,
+                duration: 0.3,
+                ease: 'power2.out',
+            });
+        };
+
+        card.addEventListener('mouseenter', handleMouseEnter);
+        card.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            card.removeEventListener('mouseenter', handleMouseEnter);
+            card.removeEventListener('mouseleave', handleMouseLeave);
+        };
+    }, []);
+
     return (
-        <Card className="h-80 border-[3px] border-solid border-[var(--border-light)] rounded-[19px] p-6">
+        <Card
+            ref={cardRef}
+            className="h-80 border-[3px] border-solid border-[var(--border-light)] rounded-[19px] p-6 cursor-pointer"
+        >
             <div className="flex h-full flex-col items-center justify-center gap-6">
                 <div className="flex h-20 w-20 items-center justify-center">
                     <img
+                        ref={logoRef}
                         src={account.logo}
                         alt={`${account.name} logo`}
-                        className="h-20 w-20 object-cover"
+                        className="h-20 w-20 object-cover transition-transform duration-300"
                     />
                 </div>
 
