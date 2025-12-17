@@ -58,12 +58,12 @@ export default function Contact(): React.JSX.Element {
     return (
         <section className="w-full px-15">
             <div className="container mx-auto">
-                <div className="mb-[66px] flex flex-col items-center gap-[43px]">
+                <div className="mb-[66px] flex flex-col items-center">
                     <h2 className="text-center [font-family:'Helvetica_Neue-Bold',Helvetica] text-[80px] leading-[93px] font-bold tracking-[0] whitespace-nowrap text-white">
                         Connect With Us
                     </h2>
 
-                    <p className="max-w-[794px] text-center [font-family:'Hellix-Regular',Helvetica] text-xl leading-[31px] font-normal tracking-[0] text-white">
+                    <p className="max-w-[794px] text-center mt-3 [font-family:'Hellix-Regular',Helvetica] text-xl leading-[31px] font-normal tracking-[0] text-white">
                         With fast withdrawals, exceptional customer support, and
                         a smooth trading experience.
                     </p>
