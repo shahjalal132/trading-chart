@@ -40,9 +40,9 @@ export default function Trade() {
 
                     <div className="flex justify-center lg:justify-end">
                         <img
-                            className="h-auto w-full max-w-[693px] object-cover"
+                            className="h-auto w-full rounded-[19px] object-cover"
                             alt="Professional trader"
-                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='693' height='695'%3E%3Crect width='693' height='695' fill='%23333'/%3E%3C/svg%3E"
+                            src="/assets/images/person3.png"
                         />
                     </div>
                 </div>
