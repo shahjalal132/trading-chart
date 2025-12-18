@@ -42,6 +42,7 @@ const resourcesData: ResourceData[] = [
             'All the classes will be recorded for your practice and review',
         ],
         price: '$900',
+        href: '/course/details',
     },
     {
         title: 'FREE LIVE TRIALS',

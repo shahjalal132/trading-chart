@@ -7,6 +7,7 @@ export interface ResourceData {
     title: string;
     features: string[];
     price: string;
+    href?: string;
 }
 
 interface ResourceCardProps {
@@ -77,8 +78,8 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
                 <div className="mt-12">
                     <GradientButton
                         variant="red"
-                        href="/get-started"
-                        className="px-8 py-3 font-semibold"
+                        href={resource.href || '/get-started'}
+                        className="px-8 py-3 font-semibold hover:cursor-pointer"
                     >
                         Get Started Now
                     </GradientButton>
