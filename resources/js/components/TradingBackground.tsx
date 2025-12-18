@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { gsap } from 'gsap';
 
 export default function TradingBackground() {
@@ -7,6 +7,14 @@ export default function TradingBackground() {
     const greenLineRef = useRef<SVGPathElement>(null);
     const redDotRef = useRef<SVGCircleElement>(null);
     const greenDotRef = useRef<SVGCircleElement>(null);
+
+    // Generate particle positions using useMemo to avoid calling Math.random during render
+    const particlePositions = useMemo(() => {
+        return Array.from({ length: 20 }).map(() => ({
+            left: Math.random() * 100,
+            top: Math.random() * 100,
+        }));
+    }, []);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -147,13 +155,13 @@ export default function TradingBackground() {
             </svg>
 
             {/* Floating Particles */}
-            {Array.from({ length: 20 }).map((_, index) => (
+            {particlePositions.map((position, index) => (
                 <div
                     key={index}
                     className="particle absolute h-1 w-1 rounded-full bg-white/20"
                     style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
+                        left: `${position.left}%`,
+                        top: `${position.top}%`,
                     }}
                 />
             ))}

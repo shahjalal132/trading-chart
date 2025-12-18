@@ -8,11 +8,13 @@ import Resources from '@/components/sections/Resources';
 import Trade from '@/components/sections/Trade';
 import Video from '@/components/sections/Video';
 import WebLayout from '@/layouts/web-layout';
+import { Head } from '@inertiajs/react';
 import React from 'react';
 
 export default function Home(): React.JSX.Element {
     return (
         <WebLayout>
+            <Head title="Home" />
             {/* Hero section background */}
             <div className="relative z-10">
                 <div
