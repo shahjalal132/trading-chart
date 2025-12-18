@@ -14,7 +14,7 @@ export default function CourseDetails(): React.JSX.Element {
                 ]}
             />
 
-            <div className="w-full pt-30">
+            <div className="w-full md:pt-30">
                 <CourseDetailsInfo />
             </div>
 

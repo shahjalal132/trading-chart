@@ -6,28 +6,28 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel';
 import courseData from '@/data/course-details.json';
+import { Link } from '@inertiajs/react';
 import {
     Calendar,
     ChevronDown,
-    ChevronLeft,
-    ChevronRight,
     CircleCheck,
     Clock,
+    Instagram,
     Lock,
     MessageCircle,
     Send,
     Star,
     Users,
     Youtube,
-    Instagram,
 } from 'lucide-react';
-import { Link } from '@inertiajs/react';
 import React, { useState } from 'react';
 
 export default function CourseDetailsInfo(): React.JSX.Element {
     const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
     const [activeTab, setActiveTab] = useState('course-info');
-    const [expandedModules, setExpandedModules] = useState<Record<number, boolean>>({ 1: true });
+    const [expandedModules, setExpandedModules] = useState<
+        Record<number, boolean>
+    >({ 1: true });
 
     const {
         course,
@@ -63,9 +63,11 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                 return (
                     <div className="mt-8 space-y-6 rounded-2xl">
                         <div className="space-y-4 leading-relaxed text-gray-300">
-                            {courseInfoContent.description.map((para, index) => (
-                                <p key={index}>{para}</p>
-                            ))}
+                            {courseInfoContent.description.map(
+                                (para, index) => (
+                                    <p key={index}>{para}</p>
+                                ),
+                            )}
                         </div>
 
                         <div>
@@ -117,7 +119,7 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                                 >
                                     <button
                                         onClick={() => toggleModule(module.id)}
-                                        className="flex w-full items-center justify-between p-5 transition-colors hover:bg-gray-750 hover:cursor-pointer"
+                                        className="hover:bg-gray-750 flex w-full items-center justify-between p-5 transition-colors hover:cursor-pointer"
                                     >
                                         <span className="text-left font-medium">
                                             {module.title}
@@ -152,7 +154,9 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                                                                     href="#"
                                                                     className="cursor-pointer text-gray-300 transition-colors hover:text-yellow-400"
                                                                 >
-                                                                    {lesson.title}
+                                                                    {
+                                                                        lesson.title
+                                                                    }
                                                                 </Link>
                                                             </div>
                                                             <div className="flex items-center gap-3 text-gray-400">
@@ -161,7 +165,9 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                                                                 )}
                                                                 <span className="text-sm">
                                                                     (
-                                                                    {lesson.duration}
+                                                                    {
+                                                                        lesson.duration
+                                                                    }
                                                                     )
                                                                 </span>
                                                             </div>
@@ -178,22 +184,26 @@ export default function CourseDetailsInfo(): React.JSX.Element {
 
             case 'instructor':
                 return (
-                    <div className="mt-8 ">
+                    <div className="mt-8">
                         <h2 className="mb-6 text-3xl font-bold">
                             Course Instructors
                         </h2>
                         <div className="rounded-3xl bg-[#222428] p-8">
-                            <div className="flex flex-col gap-6 md:flex-row">
+                            <div className="flex flex-col items-center gap-6 md:items-start md:flex-row">
                                 <div className="flex-shrink-0">
-                                    <div className="h-32 w-32 rounded-full bg-gray-600"></div>
+                                    {/* instructor image */}
+                                    <img src="/assets/images/person.png" alt="Instructor Image" className="h-32 w-32 rounded-full object-cover border-2 border-white" />
                                 </div>
-                                <div className="flex-1">
-                                    <div className="mb-1 font-semibold text-lg text-red-500">
+                                <div className="flex-1 text-center md:text-left">
+                                    {/* instructor role */}
+                                    <div className="mb-1 text-lg font-semibold text-red-500">
                                         {instructor.role}
                                     </div>
+                                    {/* instructor name */}
                                     <h3 className="mb-4 text-2xl font-bold">
                                         {instructor.name}
                                     </h3>
+                                    {/* instructor description */}
                                     <div className="mb-6 space-y-4 leading-relaxed text-gray-300">
                                         {instructor.description.map(
                                             (para, index) => (
@@ -201,6 +211,7 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                                             ),
                                         )}
                                     </div>
+                                    {/* instructor social links */}
                                     <div className="flex gap-4">
                                         {instructor.socialLinks.map(
                                             (link, index) => {
@@ -387,13 +398,17 @@ export default function CourseDetailsInfo(): React.JSX.Element {
     };
 
     return (
-        <div className="min-h-screen p-8 text-white">
+        <div className="min-h-screen p-4 md:p-8 text-white">
             <div className="mx-auto max-w-6xl">
                 {/* Main Content Grid */}
                 <div className="mb-16 grid grid-cols-1 gap-7 lg:grid-cols-3">
                     {/* Course Image */}
                     <div className="lg:col-span-2">
-                        <div className="aspect-video h-full w-full rounded-3xl bg-gray-200"></div>
+                        <img
+                            src="/assets/images/person3.png"
+                            alt="Course Image"
+                            className="h-full w-full rounded-3xl object-cover"
+                        />
                     </div>
 
                     {/* Course Info Card */}
@@ -491,22 +506,22 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                         <div className="mb-6">
                             <div className="flex items-center gap-2">
                                 <Star className="h-6 w-6 fill-yellow-400 text-yellow-400" />
-                                <span className="[font-family:'DM_Sans-Bold',Helvetica] text-lg leading-7 font-bold tracking-[0] ">
+                                <span className="[font-family:'DM_Sans-Bold',Helvetica] text-lg leading-7 font-bold tracking-[0]">
                                     ({course.rating} ★ Ratings)
                                 </span>
                             </div>
 
-                            <h2 className="mt-8 mb-10 [font-family:'DM_Sans-SemiBold',Helvetica] text-[50px] leading-tight font-semibold tracking-[0]">
+                            <h2 className="my-6 md:mt-8 md:mb-10 [font-family:'DM_Sans-SemiBold',Helvetica] text-[36px] md:text-[50px] leading-tight font-semibold tracking-[0]">
                                 {course.title}
                             </h2>
 
                             {/* Tabs */}
-                            <div className="flex flex-wrap gap-5 lg:max-w-[81%] bg-[#222428] p-3 rounded-4xl">
+                            <div className="flex flex-col gap-3 md:flex-wrap md:gap-5 rounded-4xl bg-[#222428] p-3 lg:max-w-[81%]">
                                 {tabs.map((tab) => (
                                     <button
                                         key={tab.id}
                                         onClick={() => setActiveTab(tab.id)}
-                                        className={`rounded-full px-6 py-2 transition-colors [font-family:'DM_Sans-SemiBold',Helvetica] text-[17px] leading-7 font-semibold tracking-[0] ${
+                                        className={`rounded-full px-6 py-2 [font-family:'DM_Sans-SemiBold',Helvetica] text-[17px] leading-7 font-semibold tracking-[0] transition-colors ${
                                             activeTab === tab.id
                                                 ? tab.id === 'curriculum'
                                                     ? 'bg-yellow-400 text-gray-900'
