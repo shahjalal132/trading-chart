@@ -3,7 +3,6 @@ import {
     NavigationMenu,
     NavigationMenuContent,
     NavigationMenuItem,
-    NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
@@ -14,6 +13,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
+import { Link } from '@inertiajs/react';
 import { ChevronDown, ChevronUp, Menu } from 'lucide-react';
 import React, { useState } from 'react';
 import AppLogo from '../AppLogo';
@@ -41,9 +41,10 @@ const navigationItems: NavItem[] = [
 
 export default function Header(): React.JSX.Element {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [openDropdown, setOpenDropdown] = useState<number | null>(null);
 
     return (
-        <header className="flex w-full items-center justify-between bg-[var(--header-bg)] px-4 py-5 md:px-8 lg:px-[220px]">
+        <header className="relative z-50 flex w-full items-center justify-between bg-[var(--header-bg)] px-4 py-5 md:px-8 lg:px-[220px]">
             <AppLogo src="/assets/images/logo.png" />
 
             {/* Desktop Navigation */}
@@ -51,39 +52,39 @@ export default function Header(): React.JSX.Element {
                 <NavigationMenu viewport={false}>
                     <NavigationMenuList className="flex gap-[31px]">
                         {navigationItems.map((item, index) => (
-                            <NavigationMenuItem key={index}>
+                            <NavigationMenuItem key={index} className="relative">
                                 {item.hasDropdown ? (
                                     <>
-                                        <NavigationMenuTrigger className="group flex h-auto items-center gap-1 bg-transparent p-0 [font-family:'DM_Sans-SemiBold',Helvetica] text-base leading-7 font-semibold tracking-[0] whitespace-nowrap text-white transition-opacity hover:bg-transparent hover:opacity-80 focus:bg-transparent focus-visible:ring-0 focus-visible:outline-none data-[state=open]:bg-transparent [&>svg:first-of-type]:hidden">
+                                        <NavigationMenuTrigger className="group flex h-auto min-h-[28px] items-center gap-1 bg-transparent p-0 [font-family:'DM_Sans-SemiBold',Helvetica] text-base leading-7 font-semibold tracking-[0] whitespace-nowrap text-white transition-opacity hover:bg-transparent hover:opacity-80 focus:bg-transparent focus-visible:ring-0 focus-visible:outline-none data-[state=open]:bg-transparent data-[state=open]:opacity-80 [&>svg:first-of-type]:hidden">
                                             {item.label}
-                                            <span className="relative inline-block">
-                                                <ChevronDown className="ml-1 h-[5px] w-[8.18px] transition-all duration-300 group-data-[state=open]:hidden" />
-                                                <ChevronUp className="absolute inset-0 ml-1 h-[5px] w-[8.18px] transition-all duration-300 group-data-[state=closed]:hidden group-data-[state=open]:block" />
+                                            <span className="relative inline-flex h-4 w-4 items-center justify-center">
+                                                <ChevronDown className="absolute ml-1 h-4 w-4 transition-all duration-300 group-data-[state=open]:hidden" />
+                                                <ChevronUp className="absolute ml-1 h-4 w-4 transition-all duration-300 group-data-[state=closed]:hidden group-data-[state=open]:block" />
                                             </span>
                                         </NavigationMenuTrigger>
-                                        <NavigationMenuContent className="border-[var(--border-medium)] bg-[var(--header-bg)]">
+                                        <NavigationMenuContent className="absolute left-0 top-full z-50 mt-1.5 border-[var(--border-medium)] bg-[var(--header-bg)]">
                                             <div className="flex min-w-[160px] flex-col gap-1 p-2">
                                                 {services.map(
                                                     (service, serviceIndex) => (
-                                                        <NavigationMenuLink
+                                                        <Link
                                                             key={serviceIndex}
                                                             href={service.href}
                                                             className="rounded-md px-3 py-2 [font-family:'DM_Sans-SemiBold',Helvetica] text-base leading-7 font-semibold tracking-[0] text-white transition-opacity hover:bg-white/10 hover:opacity-80"
                                                         >
                                                             {service.label}
-                                                        </NavigationMenuLink>
+                                                        </Link>
                                                     ),
                                                 )}
                                             </div>
                                         </NavigationMenuContent>
                                     </>
                                 ) : (
-                                    <NavigationMenuLink
+                                    <Link
                                         href={item.href}
                                         className="flex items-center gap-1 [font-family:'DM_Sans-SemiBold',Helvetica] text-base leading-7 font-semibold tracking-[0] whitespace-nowrap text-white transition-opacity hover:opacity-80"
                                     >
                                         {item.label}
-                                    </NavigationMenuLink>
+                                    </Link>
                                 )}
                             </NavigationMenuItem>
                         ))}
@@ -110,7 +111,15 @@ export default function Header(): React.JSX.Element {
 
             {/* Mobile Menu */}
             <div className="mobile-navigation-menu lg:hidden">
-                <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <Sheet
+                    open={mobileMenuOpen}
+                    onOpenChange={(open) => {
+                        setMobileMenuOpen(open);
+                        if (!open) {
+                            setOpenDropdown(null);
+                        }
+                    }}
+                >
                     <SheetTrigger asChild>
                         <Button
                             variant="ghost"
@@ -134,37 +143,69 @@ export default function Header(): React.JSX.Element {
                             <nav className="flex flex-col gap-4">
                                 {navigationItems.map((item, index) => (
                                     <div key={index}>
-                                        <a
-                                            href={item.href}
-                                            className="flex items-center justify-between py-2 [font-family:'DM_Sans-SemiBold',Helvetica] text-base leading-7 font-semibold tracking-[0] text-white transition-opacity hover:opacity-80"
-                                            onClick={() =>
-                                                setMobileMenuOpen(false)
-                                            }
-                                        >
-                                            <span>{item.label}</span>
-                                            {item.hasDropdown && (
-                                                <ChevronDown  />
-                                            )}
-                                        </a>
-                                        {item.hasDropdown && (
-                                            <div className="mt-2 ml-4 flex flex-col gap-2">
-                                                {services.map(
-                                                    (service, serviceIndex) => (
-                                                        <a
-                                                            key={serviceIndex}
-                                                            href={service.href}
-                                                            className="py-1 [font-family:'DM_Sans-SemiBold',Helvetica] text-sm leading-6 font-semibold tracking-[0] text-white/80 transition-opacity hover:opacity-80"
-                                                            onClick={() =>
-                                                                setMobileMenuOpen(
-                                                                    false,
-                                                                )
-                                                            }
-                                                        >
-                                                            {service.label}
-                                                        </a>
-                                                    ),
+                                        {item.hasDropdown ? (
+                                            <>
+                                                <button
+                                                    type="button"
+                                                    className="flex w-full items-center justify-between py-2 [font-family:'DM_Sans-SemiBold',Helvetica] text-base leading-7 font-semibold tracking-[0] text-white transition-opacity hover:opacity-80"
+                                                    onClick={() =>
+                                                        setOpenDropdown(
+                                                            openDropdown === index
+                                                                ? null
+                                                                : index,
+                                                        )
+                                                    }
+                                                >
+                                                    <span>{item.label}</span>
+                                                    {openDropdown === index ? (
+                                                        <ChevronUp className="h-5 w-5" />
+                                                    ) : (
+                                                        <ChevronDown className="h-5 w-5" />
+                                                    )}
+                                                </button>
+                                                {openDropdown === index && (
+                                                    <div className="mt-2 ml-4 flex flex-col gap-2">
+                                                        {services.map(
+                                                            (
+                                                                service,
+                                                                serviceIndex,
+                                                            ) => (
+                                                                <Link
+                                                                    key={
+                                                                        serviceIndex
+                                                                    }
+                                                                    href={
+                                                                        service.href
+                                                                    }
+                                                                    className="py-1 [font-family:'DM_Sans-SemiBold',Helvetica] text-sm leading-6 font-semibold tracking-[0] text-white/80 transition-opacity hover:opacity-80"
+                                                                    onClick={() => {
+                                                                        setMobileMenuOpen(
+                                                                            false,
+                                                                        );
+                                                                        setOpenDropdown(
+                                                                            null,
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        service.label
+                                                                    }
+                                                                </Link>
+                                                            ),
+                                                        )}
+                                                    </div>
                                                 )}
-                                            </div>
+                                            </>
+                                        ) : (
+                                            <Link
+                                                href={item.href}
+                                                className="flex items-center justify-between py-2 [font-family:'DM_Sans-SemiBold',Helvetica] text-base leading-7 font-semibold tracking-[0] text-white transition-opacity hover:opacity-80"
+                                                onClick={() =>
+                                                    setMobileMenuOpen(false)
+                                                }
+                                            >
+                                                <span>{item.label}</span>
+                                            </Link>
                                         )}
                                     </div>
                                 ))}
