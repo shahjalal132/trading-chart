@@ -1,0 +1,100 @@
+{
+  "course": {
+    "title": "TRADE WITH ME",
+    "rating": 4.8,
+    "totalReviews": 650,
+    "overallRating": 4.9,
+    "price": 450,
+    "image": "/assets/images/course-image.jpg"
+  },
+  "courseInfo": {
+    "startDate": "12 February 2025",
+    "endDate": "30 October 2025",
+    "startTime": "09:00 am",
+    "endTime": "06:00 pm",
+    "totalSeats": 50
+  },
+  "tabs": [
+    {
+      "id": "course-info",
+      "label": "Course Info"
+    },
+    {
+      "id": "curriculum",
+      "label": "Curriculum"
+    },
+    {
+      "id": "instructor",
+      "label": "Instructor"
+    },
+    {
+      "id": "reviews",
+      "label": "Reviews"
+    }
+  ],
+  "ratingBreakdown": [
+    {
+      "stars": 5,
+      "count": 92,
+      "total": 650
+    },
+    {
+      "stars": 4,
+      "count": 103,
+      "total": 650
+    },
+    {
+      "stars": 3,
+      "count": 68,
+      "total": 650
+    },
+    {
+      "stars": 2,
+      "count": 34,
+      "total": 650
+    },
+    {
+      "stars": 1,
+      "count": 41,
+      "total": 650
+    }
+  ],
+  "reviews": [
+    {
+      "rating": 5,
+      "text": "I would recommend practitioners at this center to everyone! They are great to work with & are excellent!",
+      "author": "Ovi Rashed",
+      "role": "Student Name",
+      "avatar": "/assets/images/avatar1.jpg"
+    },
+    {
+      "rating": 5,
+      "text": "Amazing course! The instructor was knowledgeable and the content was well-structured. Highly recommended!",
+      "author": "Sarah Johnson",
+      "role": "Student Name",
+      "avatar": "/assets/images/avatar2.jpg"
+    },
+    {
+      "rating": 4,
+      "text": "Great learning experience. The course materials were comprehensive and easy to follow.",
+      "author": "Michael Chen",
+      "role": "Student Name",
+      "avatar": "/assets/images/avatar3.jpg"
+    },
+    {
+      "rating": 5,
+      "text": "This course exceeded my expectations. The practical examples and real-world applications made learning engaging and effective.",
+      "author": "Emily Davis",
+      "role": "Professional Trader",
+      "avatar": "/assets/images/avatar4.jpg"
+    },
+    {
+      "rating": 5,
+      "text": "Outstanding instruction and support throughout the course. I've seen significant improvement in my trading skills.",
+      "author": "James Wilson",
+      "role": "Beginner Trader",
+      "avatar": "/assets/images/avatar5.jpg"
+    }
+  ]
+}
+
