@@ -138,9 +138,9 @@ export default function Header(): React.JSX.Element {
                         <SheetHeader>
                             <SheetTitle className="text-white">Menu</SheetTitle>
                         </SheetHeader>
-                        <div className="mt-8 flex flex-col gap-6">
+                        <div className="mt-2 flex px-5 flex-col gap-6">
                             {/* Navigation Items */}
-                            <nav className="flex flex-col gap-4">
+                            <nav className="flex flex-col gap-1">
                                 {navigationItems.map((item, index) => (
                                     <div key={index}>
                                         {item.hasDropdown ? (
@@ -212,18 +212,18 @@ export default function Header(): React.JSX.Element {
                             </nav>
 
                             {/* Buttons */}
-                            <div className="mt-4 flex flex-col gap-3 border-t border-[var(--border-medium)] pt-4">
+                            <div className="flex flex-col gap-4">
                                 <GradientButton
                                     variant="green"
                                     href="/login"
-                                    className="w-full"
+                                    className="w-full py-2 px-4 font-semibold"
                                 >
                                     Log In
                                 </GradientButton>
                                 <GradientButton
                                     variant="red"
                                     href="/signup"
-                                    className="w-full"
+                                    className="w-full py-2 px-4 font-semibold"
                                 >
                                     Sign Up
                                 </GradientButton>
