@@ -393,7 +393,7 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                 {/* Main Content Grid */}
                 <div className="mb-16 grid grid-cols-1 gap-7 lg:grid-cols-3">
                     {/* Course Image */}
-                    <div className="lg:col-span-2">
+                    <div className="lg:col-span-2 lg:max-h-[640px]">
                         <img
                             src="/assets/images/person3.png"
                             alt="Course Image"
@@ -402,7 +402,7 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                     </div>
 
                     {/* Course Info Card */}
-                    <div className="rounded-3xl bg-[#222428] p-8 pt-10">
+                    <div className="rounded-3xl lg:max-h-[640px] bg-[#222428] p-8 pt-10">
                         <h3 className="text-[26px] leading-[1px] font-semibold">
                             Course Info
                         </h3>
@@ -506,7 +506,7 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                             </h2>
 
                             {/* Tabs */}
-                            <div className="flex sm:flex-col md:flex-row gap-3 md:flex-wrap md:gap-5 rounded-4xl bg-[#222428] p-3 lg:max-w-[81%]">
+                            <div className="flex flex-col md:flex-row gap-3 md:flex-wrap md:gap-5 rounded-4xl bg-[#222428] p-3 lg:max-w-[81%]">
                                 {tabs.map((tab) => (
                                     <button
                                         key={tab.id}
