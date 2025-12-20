@@ -14,6 +14,10 @@ Route::get('/course/details', function () {
     return Inertia::render('course/details');
 })->name('course.details');
 
+Route::get('/faq', function () {
+    return Inertia::render('faq');
+})->name('faq');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
