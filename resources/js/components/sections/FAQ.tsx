@@ -5,8 +5,9 @@ import {
     AccordionTrigger,
 } from '@/components/ui/accordion';
 import courseData from '@/data/course-details.json';
-import React from 'react';
 import { cn } from '@/lib/utils';
+import { Minus, Plus } from 'lucide-react';
+import React from 'react';
 
 interface FAQItem {
     id: number;
@@ -17,15 +18,12 @@ interface FAQItem {
 export default function FAQ(): React.JSX.Element {
     const faqs: FAQItem[] = courseData.faqs || [];
 
-    // Initialize with FAQs 6 and 12 open by default (as in the original design)
-    const defaultValue = ['6', '12'];
-
     return (
         <section className="w-full px-4 py-16 md:py-20">
             <div className="container mx-auto">
                 <div className="flex flex-col items-center">
                     {/* Header */}
-                    <h2 className="mb-12 text-center text-4xl font-bold leading-tight md:text-5xl">
+                    <h2 className="mb-12 text-center text-4xl leading-tight font-bold md:text-5xl">
                         Frequently Asked
                         <br />
                         Questions
@@ -33,8 +31,8 @@ export default function FAQ(): React.JSX.Element {
 
                     {/* FAQ Grid */}
                     <Accordion
-                        type="multiple"
-                        defaultValue={defaultValue}
+                        type="single"
+                        collapsible
                         className="grid w-full grid-cols-1 gap-4 md:grid-cols-2"
                     >
                         {faqs.map((faq) => (
@@ -42,30 +40,35 @@ export default function FAQ(): React.JSX.Element {
                                 key={faq.id}
                                 value={faq.id.toString()}
                                 className={cn(
-                                    'rounded-lg border transition-all',
-                                    'border-gray-800 bg-gray-900',
-                                    'data-[state=open]:border-green-500 data-[state=open]:bg-green-900 data-[state=open]:bg-opacity-20',
-                                    '[&_button[data-state=open]_.faq-plus-icon]:rotate-45 [&_button[data-state=open]_.faq-plus-icon]:bg-green-500',
-                                    'border-b-0'
+                                    'rounded-4xl border transition-all',
+                                    'border-[#363636] bg-[#0d0d0d]',
+                                    'data-[state=open]:bg-opacity-20 data-[state=open]:border-[#363636] data-[state=open]:bg-[#0d0d0d]',
+                                    ' border-b-0',
                                 )}
                             >
                                 <AccordionTrigger
                                     className={cn(
                                         'flex w-full items-start justify-between gap-4 p-5 text-left',
-                                        'hover:no-underline [&>svg]:hidden'
+                                        'hover:no-underline [&>svg]:hidden',
+                                        'data-[state=open]:border-b data-[state=open]:border-[#363636]',
+                                        'data-[state=open]:bg-gradient-to-b data-[state=open]:from-[#188100] data-[state=open]:to-[#011903]',
+                                        '[&_.faq-icon]:bg-gray-700',
+                                        '[&[data-state=open]_.faq-icon]:bg-white',
+                                        '[&_.faq-plus-icon]:block [&[data-state=open]_.faq-plus-icon]:hidden',
+                                        '[&_.faq-minus-icon]:hidden [&[data-state=open]_.faq-minus-icon]:block',
+                                        'hover:cursor-pointer'
                                     )}
                                 >
-                                    <span className="pr-4 text-sm font-medium md:text-base">
+                                    <span className="jalal3 pr-4 text-sm font-medium md:text-base">
                                         {faq.id}. {faq.question}
                                     </span>
-                                    <div className="faq-plus-icon flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gray-700 transition-all">
-                                        <span className="font-bold text-white">
-                                            +
-                                        </span>
+                                    <div className="faq-icon jalal4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all">
+                                        <Plus className="faq-plus-icon h-5 w-5 text-white" />
+                                        <Minus className="faq-minus-icon h-5 w-5 text-gray-700" />
                                     </div>
                                 </AccordionTrigger>
-                                <AccordionContent className="px-5 pb-5 pt-0">
-                                    <p className="text-sm leading-relaxed text-gray-300">
+                                <AccordionContent className="px-6 pt-6 pb-6">
+                                    <p className="text-lg leading-relaxed font-medium text-[#afafaf]">
                                         {faq.answer}
                                     </p>
                                 </AccordionContent>
@@ -77,4 +80,3 @@ export default function FAQ(): React.JSX.Element {
         </section>
     );
 }
-
