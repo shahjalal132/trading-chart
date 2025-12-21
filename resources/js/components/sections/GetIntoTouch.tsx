@@ -159,7 +159,7 @@ export default function GetIntoTouch(): React.JSX.Element {
                             {/* Submit Button */}
                             <GradientButton
                                 variant="green"
-                                href="/contact"
+                                href="/contacts"
                                 className="mt-4 px-8 py-3 font-semibold hover:cursor-pointer"
                             >
                                 Request A Call

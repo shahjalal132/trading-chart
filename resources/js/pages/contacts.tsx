@@ -4,15 +4,15 @@ import GetIntoTouch from '@/components/sections/GetIntoTouch';
 import WebLayout from '@/layouts/web-layout';
 import { Head } from '@inertiajs/react';
 
-export default function ContactPage(): React.JSX.Element {
+export default function ContactsPage(): React.JSX.Element {
     return (
         <WebLayout>
-            <Head title="Contact" />
+            <Head title="Contacts" />
             <BreadCrumbBanner
-                title="Contact Us"
+                title="Our Contacts"
                 breadcrumbs={[
                     { title: 'Home', href: '/' },
-                    { title: 'Contact', href: '/contact' },
+                    { title: 'Contacts', href: '/contacts' },
                 ]}
             />
 

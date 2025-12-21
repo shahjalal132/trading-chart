@@ -18,9 +18,9 @@ Route::get('/faq', function () {
     return Inertia::render('faq');
 })->name('faq');
 
-Route::get('/contact', function () {
-    return Inertia::render('contact');
-})->name('contact');
+Route::get('/contacts', function () {
+    return Inertia::render('contacts');
+})->name('contacts');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
