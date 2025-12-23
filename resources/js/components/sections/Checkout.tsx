@@ -1,6 +1,7 @@
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import React, { useState } from 'react';
+import GradientButton from '../GradientButton';
 
 interface CourseItem {
     name: string;
@@ -230,7 +231,7 @@ export default function Checkout(): React.JSX.Element {
                         </h2>
 
                         {/* Course Listing */}
-                        <div className="mb-10 bg-[#121212] rounded-xl border-2 py-4 pl-6 pr-10">
+                        <div className="mb-10 rounded-xl border-2 bg-[#121212] py-4 pr-10 pl-6">
                             <div className="flex items-center justify-between">
                                 <h3 className="mb-4 text-[22px] font-bold">
                                     Course Listing
@@ -240,7 +241,7 @@ export default function Checkout(): React.JSX.Element {
                                 </h4>
                             </div>
 
-                            <div className='border-b mb-4 border-[#363636]'></div>
+                            <div className="mb-4 border-b border-[#363636]"></div>
 
                             {/* Course Items */}
                             <div className="space-y-5">
@@ -269,10 +270,10 @@ export default function Checkout(): React.JSX.Element {
                         </div>
 
                         {/* Payment Methods */}
-                        <div className="mb-6 bg-[#121212] rounded-xl border-2 py-4 pl-6 pr-10 space-y-4">
+                        <div className="mb-6 space-y-3 rounded-xl border-2 bg-[#121212] py-4 pr-10 pl-6">
                             {/* Direct Bank Transfer */}
-                            <div className="rounded-lg bg-gray-800 p-4">
-                                <label className="mb-3 flex cursor-pointer items-center gap-3">
+                            <div className="rounded-lg">
+                                <label className="flex cursor-pointer items-center gap-3">
                                     <input
                                         type="radio"
                                         name="payment"
@@ -284,23 +285,23 @@ export default function Checkout(): React.JSX.Element {
                                         onChange={(e) =>
                                             setPaymentMethod(e.target.value)
                                         }
-                                        className="h-5 w-5 text-red-500"
+                                        className="h-5 w-5 border border-white bg-transparent text-red-500"
                                     />
-                                    <span className="font-semibold">
+                                    <span className="font-['Helvetica_Neue-Bold',Helvetica] text-[22px] font-bold">
                                         Direct bank transfer
                                     </span>
                                 </label>
-                                <p className="ml-8 text-sm text-gray-400">
+                                <p className="text-sm mt-3 font-medium leading-8 rounded px-8 py-4 bg-[#2a2a2a] text-[#b9b9b9]">
                                     Make your payment directly into our bank
-                                    account. Please use your Order ID as the
+                                    account. Please use your Order <br/> ID as the
                                     payment reference. Your order will not be
-                                    shipped until the funds have cleared in our
+                                    shipped until the <br/> funds have cleared in our
                                     account.
                                 </p>
                             </div>
 
                             {/* Check Payments */}
-                            <label className="hover:bg-gray-750 flex cursor-pointer items-center gap-3 rounded-lg bg-gray-800 p-4 transition-colors">
+                            <label className="hover:bg-gray-750 mb-0 flex cursor-pointer items-center gap-3 rounded-lg p-4 transition-colors">
                                 <input
                                     type="radio"
                                     name="payment"
@@ -309,7 +310,7 @@ export default function Checkout(): React.JSX.Element {
                                     onChange={(e) =>
                                         setPaymentMethod(e.target.value)
                                     }
-                                    className="h-5 w-5 text-red-500"
+                                    className="h-5 w-5 border border-white bg-transparent text-red-500"
                                 />
                                 <span className="font-semibold">
                                     Check payments
@@ -317,7 +318,7 @@ export default function Checkout(): React.JSX.Element {
                             </label>
 
                             {/* Cash on Delivery */}
-                            <label className="hover:bg-gray-750 flex cursor-pointer items-center gap-3 rounded-lg bg-gray-800 p-4 transition-colors">
+                            <label className="hover:bg-gray-750 mb-0 flex cursor-pointer items-center gap-3 rounded-lg p-4 transition-colors">
                                 <input
                                     type="radio"
                                     name="payment"
@@ -328,7 +329,7 @@ export default function Checkout(): React.JSX.Element {
                                     onChange={(e) =>
                                         setPaymentMethod(e.target.value)
                                     }
-                                    className="h-5 w-5 text-red-500"
+                                    className="h-5 w-5 border border-white bg-transparent text-red-500"
                                 />
                                 <span className="font-semibold">
                                     Cash on deliver
@@ -336,7 +337,7 @@ export default function Checkout(): React.JSX.Element {
                             </label>
 
                             {/* PayPal */}
-                            <div className="rounded-lg bg-gray-800 p-4">
+                            <div className="rounded-lg mb-0 p-4">
                                 <label className="flex cursor-pointer items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <input
@@ -347,7 +348,7 @@ export default function Checkout(): React.JSX.Element {
                                             onChange={(e) =>
                                                 setPaymentMethod(e.target.value)
                                             }
-                                            className="h-5 w-5 text-red-500"
+                                            className="h-5 w-5 border border-white bg-transparent text-red-500"
                                         />
                                         <span className="font-semibold">
                                             PayPal
@@ -373,29 +374,26 @@ export default function Checkout(): React.JSX.Element {
                                     </div>
                                 </label>
                             </div>
+
+                            <div className='border-b mb-6 border-[#363636]'></div>
+
+                            {/* Privacy Policy */}
+                            <p className="mb-6 text-lg p-4 font-medium text-[#b9b9b9]">
+                                Your personal data will be used to process your
+                                order, support <br/> your experience throughout this
+                                website, and for other purposes <br/> described in our
+                                privacy policy.
+                            </p>
+
+                            {/* Place Order Button */}
+                            <GradientButton
+                                variant="green"
+                                href="/checkout"
+                                className="px-8 py-3 font-semibold"
+                            >
+                                Place Your Order
+                            </GradientButton>
                         </div>
-
-                        {/* Privacy Policy */}
-                        <p className="mb-6 text-sm text-gray-400">
-                            Your personal data will be used to process your
-                            order, support your experience throughout this
-                            website, and for other purposes described in our
-                            privacy policy.
-                        </p>
-
-                        {/* Place Order Button */}
-                        <button
-                            type="button"
-                            onClick={() => {
-                                const form = document.querySelector('form');
-                                if (form) {
-                                    form.requestSubmit();
-                                }
-                            }}
-                            className="w-full rounded-lg bg-green-600 py-4 font-bold text-white transition-colors hover:bg-green-700"
-                        >
-                            Place Your Order
-                        </button>
                     </div>
                 </div>
             </div>
