@@ -1,6 +1,5 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { useEffect, useRef } from 'react';
 import GradientButton from '../GradientButton';
 
 export interface ResourceData {
@@ -14,12 +13,15 @@ interface ResourceCardProps {
     resource: ResourceData;
 }
 
-export default function ResourceCard({ resource }: ResourceCardProps) {
+export default function ResourceCard({ resource }: { resource: ResourceData }) {
     const cardRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const card = cardRef.current;
         if (!card) return;
+
+        // Set initial transform origin
+        gsap.set(card, { transformOrigin: 'center center' });
 
         const handleMouseEnter = () => {
             gsap.to(card, {
@@ -52,12 +54,12 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
     }, []);
 
     return (
-        <Card
+        <div
             ref={cardRef}
-            className="flex cursor-pointer flex-col rounded-[19px] border-[3px] border-solid border-[#ffffff36] bg-[#121212]"
+            className="flex h-fit cursor-pointer flex-col rounded-[19px] border-[3px] border-solid border-[#ffffff36] bg-[#121212] will-change-transform"
         >
-            <CardContent className="flex flex-col p-6">
-                <h2 className="mb-8 text-center [font-family:'Helvetica_Neue-Bold',Helvetica] text-2xl leading-[38px] font-bold tracking-[0] text-white md:text-left md:text-[32px]">
+            <div className="flex flex-col p-6">
+                <h2 className="mb-8 text-left text-2xl leading-[38px] font-bold tracking-[0] text-white md:text-[32px]">
                     {resource.title}
                 </h2>
 
@@ -65,10 +67,10 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
                     {resource.features.map((feature, featureIndex) => (
                         <li
                             key={featureIndex}
-                            className="flex items-center gap-3.5"
+                            className="flex items-start gap-3.5"
                         >
-                            <div className="mt-1 h-[5px] w-[5px] min-w-[5px] rounded-[2.5px] bg-[#ffffff70]" />
-                            <span className="[font-family:'Satoshi-Medium',Helvetica] text-base leading-7 font-medium tracking-[0] text-white">
+                            <div className="mt-2 h-[5px] w-[5px] min-w-[5px] rounded-[2.5px] bg-[#ffffff70]" />
+                            <span className="text-base leading-7 font-medium tracking-[0] text-white">
                                 {feature}
                             </span>
                         </li>
@@ -79,22 +81,21 @@ export default function ResourceCard({ resource }: ResourceCardProps) {
                     <GradientButton
                         variant="red"
                         href={resource.href || '/get-started'}
-                        className="px-8 py-3 font-semibold hover:cursor-pointer"
+                        className="w-full px-8 py-3 font-semibold"
                     >
                         Get Started Now
                     </GradientButton>
                 </div>
 
                 <div className="mt-7 flex flex-col gap-5">
-                    <span className="[font-family:'Satoshi-Medium',Helvetica] text-base leading-7 font-medium tracking-[0] text-white">
+                    <span className="text-base leading-7 font-medium tracking-[0] text-white">
                         Course price
                     </span>
-                    <span className="[font-family:'Helvetica_Neue-Bold',Helvetica] text-4xl leading-[38px] font-bold tracking-[0] text-white md:text-[56px]">
+                    <span className="text-4xl leading-[38px] font-bold tracking-[0] text-white md:text-[56px]">
                         {resource.price}
                     </span>
                 </div>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 }
-

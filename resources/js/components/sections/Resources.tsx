@@ -67,10 +67,8 @@ export default function Resources() {
         const cards = cardsContainerRef.current.children;
         if (cards.length === 0) return;
 
-        // Set initial states
         gsap.set(Array.from(cards), { opacity: 0, y: 100 });
 
-        // Scroll reveal animation
         gsap.to(Array.from(cards), {
             scrollTrigger: {
                 trigger: sectionRef.current,
@@ -83,7 +81,6 @@ export default function Resources() {
             ease: 'power2.out',
         });
 
-        // Refresh ScrollTrigger after setup
         ScrollTrigger.refresh();
 
         return () => {
@@ -94,20 +91,20 @@ export default function Resources() {
     return (
         <section
             ref={sectionRef}
-            className="flex min-h-screen w-full items-center justify-center px-4"
+            className="flex min-h-screen w-full items-center justify-center bg-black px-4"
         >
-            <div className="flex w-full max-w-[1621px] flex-col items-center">
-                <h1 className="mb-10 text-center [font-family:'Helvetica_Neue-Bold',Helvetica] text-5xl leading-tight font-bold tracking-[0] text-white md:text-[80px]">
+            <div className="flex w-full max-w-[1621px] flex-col items-center py-16">
+                <h1 className="mb-10 text-center text-5xl leading-tight font-bold tracking-[0] text-white md:text-[80px]">
                     Your Resources
                 </h1>
 
-                <p className="mb-12 text-center [font-family:'Hellix-Regular',Helvetica] text-lg leading-[31px] font-normal tracking-[0] text-white md:text-xl">
+                <p className="mb-12 text-center text-lg leading-[31px] font-normal tracking-[0] text-white md:text-xl">
                     One of the world&apos;s most popular multi-asset brokers.
                 </p>
 
                 <div
                     ref={cardsContainerRef}
-                    className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4"
+                    className="grid w-full grid-cols-1 items-start gap-4 md:grid-cols-2 lg:grid-cols-4"
                 >
                     {resourcesData.map((resource, index) => (
                         <ResourceCard key={index} resource={resource} />
