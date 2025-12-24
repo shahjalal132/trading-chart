@@ -20,15 +20,17 @@ export default function ResourceCard({ resource }: { resource: ResourceData }) {
         const card = cardRef.current;
         if (!card) return;
 
-        // Set initial transform origin
-        gsap.set(card, { transformOrigin: 'center center' });
+        // Set initial transform origin and background
+        gsap.set(card, { 
+            transformOrigin: 'center center',
+            background: '#121212'
+        });
 
         const handleMouseEnter = () => {
             gsap.to(card, {
                 scale: 1.05,
                 y: -10,
-                boxShadow:
-                    '0 25.6px 57.6px 0 rgba(237, 0, 0, 0.4), 0 4.8px 14.4px 0 rgba(237, 0, 0, 0.3), 0 0 0 1px rgba(237, 0, 0, 0.2)',
+                background: 'linear-gradient(180deg, #ED0000 0%, #250101 100%)',
                 duration: 0.3,
                 ease: 'power2.out',
             });
@@ -38,7 +40,7 @@ export default function ResourceCard({ resource }: { resource: ResourceData }) {
             gsap.to(card, {
                 scale: 1,
                 y: 0,
-                boxShadow: 'none',
+                background: '#121212',
                 duration: 0.3,
                 ease: 'power2.out',
             });

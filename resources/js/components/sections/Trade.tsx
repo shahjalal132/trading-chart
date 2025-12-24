@@ -42,7 +42,7 @@ export default function Trade() {
                         <img
                             className="h-auto w-full rounded-[19px] object-cover transform scale-110 md:scale-100"
                             alt="Professional trader"
-                            src="/assets/images/person3.png"
+                            src="/assets/images/marketing.png"
                         />
                     </div>
                 </div>

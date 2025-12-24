@@ -24,11 +24,14 @@ export default function TradingAccountCard({
         const logo = logoRef.current;
         if (!card || !logo) return;
 
+        // Set initial background
+        gsap.set(card, { background: 'transparent' });
+
         const handleMouseEnter = () => {
             gsap.to(card, {
                 scale: 1.05,
                 y: -10,
-                boxShadow: '0 25.6px 57.6px 0 rgba(237, 0, 0, 0.4), 0 4.8px 14.4px 0 rgba(237, 0, 0, 0.3), 0 0 0 1px rgba(237, 0, 0, 0.2)',
+                background: 'linear-gradient(180deg, #ED0000 0%, #250101 100%)',
                 duration: 0.3,
                 ease: 'power2.out',
             });
@@ -43,7 +46,7 @@ export default function TradingAccountCard({
             gsap.to(card, {
                 scale: 1,
                 y: 0,
-                boxShadow: 'none',
+                background: 'transparent',
                 duration: 0.3,
                 ease: 'power2.out',
             });

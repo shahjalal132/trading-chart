@@ -55,18 +55,20 @@ export default function GradientButton({
         router.visit(href);
     };
 
+    const baseClasses = variant === 'green' 
+        ? 'bg-gradient-to-b from-[var(--gradient-green-start)] to-[var(--gradient-green-end)]'
+        : 'bg-gradient-to-b from-[var(--gradient-red-start)] to-[var(--gradient-red-end)]';
+
     return (
         <button
             ref={buttonRef}
             type="button"
             onClick={handleClick}
             className={cn(
-                'inline-flex items-center justify-center rounded-2xl border border-[var(--border-medium)] text-white transition-all duration-200 hover:opacity-90 hover:shadow-lg hover:cursor-pointer',
+                'inline-flex items-center justify-center rounded-2xl border border-[var(--border-medium)] text-white transition-all duration-200 hover:cursor-pointer',
+                baseClasses,
                 className
             )}
-            style={{
-                background: gradientStyle,
-            }}
         >
             {children}
         </button>

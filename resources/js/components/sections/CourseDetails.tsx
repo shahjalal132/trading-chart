@@ -181,7 +181,7 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                             <div className="flex flex-col items-center gap-6 md:items-start md:flex-row">
                                 <div className="flex-shrink-0">
                                     {/* instructor image */}
-                                    <img src="/assets/images/person.png" alt="Instructor Image" className="h-32 w-32 rounded-full object-cover border-2 border-white" />
+                                    <img src="/assets/images/marketing.png" alt="Instructor Image" className="h-32 w-32 rounded-full object-cover border-2 border-white" />
                                 </div>
                                 <div className="flex-1 text-center md:text-left">
                                     {/* instructor role */}
@@ -395,7 +395,7 @@ export default function CourseDetailsInfo(): React.JSX.Element {
                     {/* Course Image */}
                     <div className="lg:col-span-2 lg:max-h-[640px]">
                         <img
-                            src="/assets/images/person3.png"
+                            src="/assets/images/course-details.png"
                             alt="Course Image"
                             className="h-full w-full rounded-3xl object-cover"
                         />
