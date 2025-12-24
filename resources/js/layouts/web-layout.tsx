@@ -2,6 +2,7 @@ import Footer from '@/components/sections/Footer';
 import Header from '@/components/sections/Header';
 import ScrollToTop from '@/components/ScrollToTop';
 import TradingBackground from '@/components/TradingBackground';
+import AIChat from '@/components/AIChat';
 import { type ReactNode } from 'react';
 
 interface WebLayoutProps {
@@ -16,6 +17,7 @@ export default function WebLayout({ children }: WebLayoutProps) {
             <main className="relative z-10 flex flex-col">{children}</main>
             <Footer />
             <ScrollToTop />
+            <AIChat />
         </div>
     );
 }

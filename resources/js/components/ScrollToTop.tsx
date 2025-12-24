@@ -53,7 +53,7 @@ export default function ScrollToTop() {
         <button
             ref={setButtonElement}
             onClick={scrollToTop}
-            className={`fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[var(--gradient-red-start)] to-[var(--gradient-red-end)] shadow-lg transition-all duration-300 hover:cursor-pointer hover:scale-110 hover:shadow-xl ${
+            className={`fixed bottom-24 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[var(--gradient-red-start)] to-[var(--gradient-red-end)] shadow-lg transition-all duration-300 hover:cursor-pointer hover:scale-110 hover:shadow-xl ${
                 isVisible ? 'pointer-events-auto' : 'pointer-events-none'
             }`}
             aria-label="Scroll to top"
