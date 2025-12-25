@@ -17,6 +17,7 @@ import {
     BookOpen,
     Folder,
     LayoutGrid,
+    Settings,
     ShoppingCart,
     Star,
     Tag,
@@ -54,6 +55,11 @@ const mainNavItems: NavItem[] = [
         title: 'Reviews',
         href: admin.reviews.index.url(),
         icon: Star,
+    },
+    {
+        title: 'Settings',
+        href: admin.settings.index.url(),
+        icon: Settings,
     },
 ];
 

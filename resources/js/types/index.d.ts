@@ -22,11 +22,29 @@ export interface NavItem {
     isActive?: boolean;
 }
 
+export interface AppSettings {
+    app_name: string | null;
+    logo_url: string | null;
+    mobile_logo_url: string | null;
+    app_description: string | null;
+    app_information: string | null;
+    facebook_url: string | null;
+    twitter_url: string | null;
+    instagram_url: string | null;
+    linkedin_url: string | null;
+    youtube_url: string | null;
+    email: string | null;
+    phone_numbers: string[];
+    address: string | null;
+    quick_links: Array<{ label: string; href: string }>;
+}
+
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
     sidebarOpen: boolean;
+    appSettings?: AppSettings;
     [key: string]: unknown;
 }
 

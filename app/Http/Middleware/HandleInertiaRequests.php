@@ -38,6 +38,9 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
+        // Get app settings
+        $appSettings = \App\Models\AppSetting::getSettings();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -46,6 +49,22 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'appSettings' => [
+                'app_name' => $appSettings->app_name,
+                'logo_url' => $appSettings->logo_url,
+                'mobile_logo_url' => $appSettings->mobile_logo_url,
+                'app_description' => $appSettings->app_description,
+                'app_information' => $appSettings->app_information,
+                'facebook_url' => $appSettings->facebook_url,
+                'twitter_url' => $appSettings->twitter_url,
+                'instagram_url' => $appSettings->instagram_url,
+                'linkedin_url' => $appSettings->linkedin_url,
+                'youtube_url' => $appSettings->youtube_url,
+                'email' => $appSettings->email,
+                'phone_numbers' => $appSettings->phone_numbers ?? [],
+                'address' => $appSettings->address,
+                'quick_links' => $appSettings->quick_links ?? [],
+            ],
         ];
     }
 }

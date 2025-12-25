@@ -29,5 +29,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Reviews
     Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::delete('reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
+    // Settings
+    Route::get('settings', [\App\Http\Controllers\Admin\AppSettingsController::class, 'index'])->name('settings.index');
+    Route::put('settings', [\App\Http\Controllers\Admin\AppSettingsController::class, 'update'])->name('settings.update');
 });
 
