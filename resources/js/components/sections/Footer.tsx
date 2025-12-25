@@ -53,12 +53,12 @@ export default function Footer() {
     const email = appSettings?.email || 'tradingchart@gmail.com';
 
     const socialIcons: SocialIcon[] = [
-        { name: 'facebook', url: appSettings?.facebook_url },
-        { name: 'twitter', url: appSettings?.twitter_url },
-        { name: 'instagram', url: appSettings?.instagram_url },
-        { name: 'linkedin', url: appSettings?.linkedin_url },
-        { name: 'youtube', url: appSettings?.youtube_url },
-    ].filter(icon => icon.url); // Only show icons with URLs
+        { name: 'facebook', url: appSettings?.facebook_url || undefined },
+        { name: 'twitter', url: appSettings?.twitter_url || undefined },
+        { name: 'instagram', url: appSettings?.instagram_url || undefined },
+        { name: 'linkedin', url: appSettings?.linkedin_url || undefined },
+        { name: 'youtube', url: appSettings?.youtube_url || undefined },
+    ].filter(icon => icon.url) as SocialIcon[]; // Only show icons with URLs
 
     return (
         <>
@@ -239,8 +239,7 @@ export default function Footer() {
                     <div className="mt-1 pt-8">
                         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
                             <p className="text-sm text-white/60">
-                                © {new Date().getFullYear()} {appName}. All
-                                rights reserved.
+                                {appSettings?.copyright_text || `© ${new Date().getFullYear()} ${appName}. All rights reserved.`}
                             </p>
                             <div className="flex gap-6">
                                 <Link

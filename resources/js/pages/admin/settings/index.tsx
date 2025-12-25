@@ -16,6 +16,7 @@ interface AppSetting {
     mobile_logo_url: string | null;
     app_description: string | null;
     app_information: string | null;
+    copyright_text: string | null;
     facebook_url: string | null;
     twitter_url: string | null;
     instagram_url: string | null;
@@ -49,10 +50,13 @@ export default function SettingsIndex({ settings }: Props) {
     const { data, setData, put, processing, errors } = useForm({
         // Application Information
         app_name: settings.app_name || '',
+        logo: null as File | null,
+        mobile_logo: null as File | null,
         logo_url: settings.logo_url || '',
         mobile_logo_url: settings.mobile_logo_url || '',
         app_description: settings.app_description || '',
         app_information: settings.app_information || '',
+        copyright_text: settings.copyright_text || '',
         
         // Social Links
         facebook_url: settings.facebook_url || '',
@@ -80,6 +84,7 @@ export default function SettingsIndex({ settings }: Props) {
         currency: settings.currency || 'USD',
         currency_symbol: settings.currency_symbol || '$',
     });
+
 
     const [activeTab, setActiveTab] = useState('web-setup');
 
@@ -119,6 +124,7 @@ export default function SettingsIndex({ settings }: Props) {
         e.preventDefault();
         put(admin.settings.update.url(), {
             preserveScroll: true,
+            forceFormData: true,
             onSuccess: () => {
                 // Show success message
             },
@@ -165,28 +171,56 @@ export default function SettingsIndex({ settings }: Props) {
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="logo_url">Logo URL</Label>
+                                        <Label htmlFor="logo">Logo</Label>
+                                        {data.logo_url && (
+                                            <div className="mb-2">
+                                                <img 
+                                                    src={data.logo_url.startsWith('http') ? data.logo_url : `/storage/${data.logo_url}`} 
+                                                    alt="Current logo" 
+                                                    className="h-20 w-auto object-contain"
+                                                />
+                                            </div>
+                                        )}
                                         <Input
-                                            id="logo_url"
-                                            value={data.logo_url}
-                                            onChange={(e) => setData('logo_url', e.target.value)}
-                                            placeholder="/assets/images/logo.png"
+                                            id="logo"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files?.[0];
+                                                if (file) {
+                                                    setData('logo', file);
+                                                }
+                                            }}
                                         />
-                                        {errors.logo_url && (
-                                            <p className="text-sm text-red-500">{errors.logo_url}</p>
+                                        {errors.logo && (
+                                            <p className="text-sm text-red-500">{errors.logo}</p>
                                         )}
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="mobile_logo_url">Mobile Logo URL</Label>
+                                        <Label htmlFor="mobile_logo">Mobile Logo</Label>
+                                        {data.mobile_logo_url && (
+                                            <div className="mb-2">
+                                                <img 
+                                                    src={data.mobile_logo_url.startsWith('http') ? data.mobile_logo_url : `/storage/${data.mobile_logo_url}`} 
+                                                    alt="Current mobile logo" 
+                                                    className="h-20 w-auto object-contain"
+                                                />
+                                            </div>
+                                        )}
                                         <Input
-                                            id="mobile_logo_url"
-                                            value={data.mobile_logo_url}
-                                            onChange={(e) => setData('mobile_logo_url', e.target.value)}
-                                            placeholder="/assets/images/logo-mobile.png"
+                                            id="mobile_logo"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files?.[0];
+                                                if (file) {
+                                                    setData('mobile_logo', file);
+                                                }
+                                            }}
                                         />
-                                        {errors.mobile_logo_url && (
-                                            <p className="text-sm text-red-500">{errors.mobile_logo_url}</p>
+                                        {errors.mobile_logo && (
+                                            <p className="text-sm text-red-500">{errors.mobile_logo}</p>
                                         )}
                                     </div>
 
@@ -215,6 +249,19 @@ export default function SettingsIndex({ settings }: Props) {
                                         />
                                         {errors.app_information && (
                                             <p className="text-sm text-red-500">{errors.app_information}</p>
+                                        )}
+                                    </div>
+
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="copyright_text">Copyright Text</Label>
+                                        <Input
+                                            id="copyright_text"
+                                            value={data.copyright_text}
+                                            onChange={(e) => setData('copyright_text', e.target.value)}
+                                            placeholder="© 2024 Trading Chart. All rights reserved."
+                                        />
+                                        {errors.copyright_text && (
+                                            <p className="text-sm text-red-500">{errors.copyright_text}</p>
                                         )}
                                     </div>
                                 </div>

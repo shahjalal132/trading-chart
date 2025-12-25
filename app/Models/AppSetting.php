@@ -15,6 +15,7 @@ class AppSetting extends Model
         'mobile_logo_url',
         'app_description',
         'app_information',
+        'copyright_text',
         'facebook_url',
         'twitter_url',
         'instagram_url',

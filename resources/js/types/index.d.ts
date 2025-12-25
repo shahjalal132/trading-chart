@@ -28,6 +28,7 @@ export interface AppSettings {
     mobile_logo_url: string | null;
     app_description: string | null;
     app_information: string | null;
+    copyright_text: string | null;
     facebook_url: string | null;
     twitter_url: string | null;
     instagram_url: string | null;
