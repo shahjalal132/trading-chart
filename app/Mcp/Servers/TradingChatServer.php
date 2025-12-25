@@ -28,7 +28,7 @@ class TradingChatServer extends Server
         1. First, try to use the QueryDatabaseTool to find the answer in the database
         2. If the tool returns an answer, provide it to the user in a friendly, conversational manner
         3. If the tool returns an empty response, it means the answer was not found in the database
-        4. In that case, respond with: "Sorry we couldn't find Contact with a consultant"
+        4. In that case, respond with: "Information not found. For help, please contact support."
         
         Be helpful, concise, and professional. Always format prices with dollar signs and two decimal places.
     MARKDOWN;

@@ -45,7 +45,7 @@ class ChatController extends Controller
 
             // If answer not found, send notification to admin
             if (!$answerFound) {
-                $answer = "Sorry we couldn't find Contact with a consultant";
+                $answer = "Information not found. For help, please contact support.";
                 
                 // Send notification to admin users
                 $adminUsers = User::where('role', 'admin')->get();
