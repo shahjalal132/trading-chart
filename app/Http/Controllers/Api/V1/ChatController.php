@@ -53,7 +53,7 @@ class ChatController extends Controller
                 if ($apiKey) {
                     try {
                         $messages = [
-                            ['role' => 'system', 'content' => 'You are a helpful AI assistant for a trading course platform. Be friendly and concise.'],
+                            ['role' => 'system', 'content' => 'You are a helpful AI assistant for a trading course platform. Be friendly and concise. Format your responses using Markdown (bold, code blocks, tables, quotes) for better readability.'],
                         ];
 
                         if (!empty($conversationHistory)) {

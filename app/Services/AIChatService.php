@@ -159,11 +159,14 @@ PROMPT;
                         return 'No published courses available at the moment.';
                     }
 
+                    // Format as markdown table
+                    $table = "| Course Title | Price | Rating | Reviews |\n";
+                    $table .= "|--------------|-------|--------|----------|\n";
                     $courseList = $courses->map(function ($course) {
-                        return "- {$course->title} (Price: $" . number_format($course->price, 2) . ", Rating: {$course->rating}/5.0, Reviews: {$course->total_reviews})";
+                        return "| {$course->title} | **$" . number_format($course->price, 2) . "** | `{$course->rating}/5.0` | {$course->total_reviews} |";
                     })->implode("\n");
 
-                    return "Here are our available courses:\n\n{$courseList}";
+                    return "Here are our available courses:\n\n{$table}\n{$courseList}";
 
                 case 'details':
                     // Get a few courses with full details
@@ -207,14 +210,17 @@ PROMPT;
                     $highestPrice = $courses->max('price');
                     $avgPrice = $courses->avg('price');
 
-                    $priceInfo = "Here's our pricing information:\n\n";
-                    $priceInfo .= "• Lowest price: $" . number_format($lowestPrice, 2) . "\n";
-                    $priceInfo .= "• Highest price: $" . number_format($highestPrice, 2) . "\n";
-                    $priceInfo .= "• Average price: $" . number_format($avgPrice, 2) . "\n\n";
-                    $priceInfo .= "All course prices:\n";
-
+                    $priceInfo = "## 💰 Pricing Information\n\n";
+                    $priceInfo .= "| Metric | Price |\n";
+                    $priceInfo .= "|--------|-------|\n";
+                    $priceInfo .= "| **Lowest** | `$" . number_format($lowestPrice, 2) . "` |\n";
+                    $priceInfo .= "| **Highest** | `$" . number_format($highestPrice, 2) . "` |\n";
+                    $priceInfo .= "| **Average** | `$" . number_format($avgPrice, 2) . "` |\n\n";
+                    $priceInfo .= "### All Course Prices\n\n";
+                    $priceInfo .= "| Course | Price |\n";
+                    $priceInfo .= "|--------|-------|\n";
                     $priceList = $courses->map(function ($course) {
-                        return "- {$course->title}: $" . number_format($course->price, 2);
+                        return "| {$course->title} | **$" . number_format($course->price, 2) . "** |";
                     })->implode("\n");
 
                     return $priceInfo . $priceList;
@@ -288,9 +294,21 @@ PROMPT;
 You are a helpful AI assistant for a trading course platform. 
 Your job is to provide friendly, natural responses to user questions based on database information.
 
+IMPORTANT: Format your responses using Markdown for better readability:
+- Use **bold** for emphasis and important information
+- Use `backticks` for code, technical terms, or specific values
+- Use > for quotes or highlighted information
+- Use tables (| column | column |) for structured data like course lists
+- Use bullet points (- or *) for lists
+- Use ## for section headings when appropriate
+- Use --- for horizontal dividers when needed
+
 Rules:
 - Be conversational and friendly
 - Use the database information provided to answer the question
+- Format course information in tables when listing multiple courses
+- Use bold for prices, ratings, and key metrics
+- Use code backticks for technical terms
 - If the database result is empty or null, politely say you couldn't find that information
 - Keep responses concise but informative
 - Don't make up information that isn't in the database result
@@ -313,7 +331,7 @@ PROMPT;
                 }
             }
 
-            $userMessage = "User question: {$query}\n\nDatabase information: {$databaseResult}\n\nProvide a natural, friendly response to the user's question based on this information.";
+            $userMessage = "User question: {$query}\n\nDatabase information: {$databaseResult}\n\nProvide a natural, friendly response to the user's question based on this information. Format your response using Markdown (bold, tables, code blocks, quotes) to make it visually appealing and easy to read.";
             $messages[] = ['role' => 'user', 'content' => $userMessage];
 
             $response = Http::withHeaders([

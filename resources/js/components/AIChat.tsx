@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Bot, Send, X, Loader2 } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Message {
     id: string;
@@ -185,9 +187,79 @@ export default function AIChat() {
                                         : 'bg-[#2a2a2a] text-white'
                                 }`}
                             >
-                                <p className="text-sm whitespace-pre-wrap">
-                                    {message.content}
-                                </p>
+                                {message.role === 'assistant' ? (
+                                    <div className="text-sm prose prose-invert prose-sm max-w-none">
+                                        <ReactMarkdown
+                                            remarkPlugins={[remarkGfm]}
+                                            components={{
+                                                p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                                                strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
+                                                code: ({ children, className }) => {
+                                                    const isInline = !className;
+                                                    return isInline ? (
+                                                        <code className="bg-[#1a1a1a] text-red-400 px-1.5 py-0.5 rounded text-xs font-mono">
+                                                            {children}
+                                                        </code>
+                                                    ) : (
+                                                        <code className="block bg-[#1a1a1a] text-red-400 p-2 rounded text-xs font-mono overflow-x-auto">
+                                                            {children}
+                                                        </code>
+                                                    );
+                                                },
+                                                blockquote: ({ children }) => (
+                                                    <blockquote className="border-l-4 border-red-500 pl-3 my-2 italic text-gray-300">
+                                                        {children}
+                                                    </blockquote>
+                                                ),
+                                                table: ({ children }) => (
+                                                    <div className="overflow-x-auto my-2">
+                                                        <table className="min-w-full border-collapse border border-[#363636]">
+                                                            {children}
+                                                        </table>
+                                                    </div>
+                                                ),
+                                                thead: ({ children }) => (
+                                                    <thead className="bg-[#1a1a1a]">{children}</thead>
+                                                ),
+                                                tbody: ({ children }) => <tbody>{children}</tbody>,
+                                                tr: ({ children }) => (
+                                                    <tr className="border-b border-[#363636]">{children}</tr>
+                                                ),
+                                                th: ({ children }) => (
+                                                    <th className="border border-[#363636] px-3 py-2 text-left font-semibold">
+                                                        {children}
+                                                    </th>
+                                                ),
+                                                td: ({ children }) => (
+                                                    <td className="border border-[#363636] px-3 py-2">
+                                                        {children}
+                                                    </td>
+                                                ),
+                                                ul: ({ children }) => (
+                                                    <ul className="list-disc list-inside my-2 space-y-1">{children}</ul>
+                                                ),
+                                                ol: ({ children }) => (
+                                                    <ol className="list-decimal list-inside my-2 space-y-1">{children}</ol>
+                                                ),
+                                                li: ({ children }) => <li className="ml-2">{children}</li>,
+                                                h1: ({ children }) => (
+                                                    <h1 className="text-lg font-bold mt-3 mb-2">{children}</h1>
+                                                ),
+                                                h2: ({ children }) => (
+                                                    <h2 className="text-base font-bold mt-3 mb-2">{children}</h2>
+                                                ),
+                                                h3: ({ children }) => (
+                                                    <h3 className="text-sm font-semibold mt-2 mb-1">{children}</h3>
+                                                ),
+                                                hr: () => <hr className="my-3 border-[#363636]" />,
+                                            }}
+                                        >
+                                            {message.content}
+                                        </ReactMarkdown>
+                                    </div>
+                                ) : (
+                                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                                )}
                                 <p className="text-xs mt-1 opacity-70">
                                     {message.timestamp.toLocaleTimeString([], {
                                         hour: '2-digit',
@@ -199,8 +271,14 @@ export default function AIChat() {
                     ))}
                     {isLoading && (
                         <div className="flex justify-start">
-                            <div className="bg-[#2a2a2a] rounded-2xl px-4 py-2">
-                                <Loader2 className="h-5 w-5 animate-spin text-white" />
+                            <div className="bg-[#2a2a2a] rounded-2xl px-4 py-3">
+                                <div className="flex items-center space-x-1">
+                                    <div className="flex space-x-1">
+                                        <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                        <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                        <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
