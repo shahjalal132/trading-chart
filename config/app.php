@@ -86,6 +86,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Currency Configuration
+    |--------------------------------------------------------------------------
+    |
+    | The application currency and currency symbol can be overridden from
+    | the database settings in the admin panel.
+    |
+    */
+
+    'currency' => env('APP_CURRENCY', 'USD'),
+
+    'currency_symbol' => env('APP_CURRENCY_SYMBOL', '$'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
     |
