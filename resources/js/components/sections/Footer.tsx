@@ -33,7 +33,19 @@ export default function Footer() {
 
     // Use dynamic data from appSettings or fallback to defaults
     const appName = appSettings?.app_name || 'Trading Chart';
-    const logoUrl = appSettings?.logo_url || '/assets/images/logo.png';
+    
+    // Handle logo URL - if it's stored in public storage, prepend /storage/, otherwise use as-is
+    const getLogoUrl = (url: string | null | undefined): string => {
+        if (!url) return '/assets/images/logo.png';
+        // If it's already a full URL (http/https), use it directly
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+            return url;
+        }
+        // If it's a storage path, prepend /storage/
+        return `/storage/${url}`;
+    };
+    
+    const logoUrl = getLogoUrl(appSettings?.logo_url);
     const appDescription = appSettings?.app_description || 
         'I am deeply committed to every student, which is why I regularly provide feedback, market updates, signal guidelines, and personal corrections. I always teach using updated market trends, data analytics, and modern trading techniques so that.';
     const appInformation = appSettings?.app_information || appDescription;

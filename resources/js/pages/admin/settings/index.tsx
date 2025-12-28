@@ -4,10 +4,12 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AppSidebarLayout from '@/layouts/app/app-sidebar-layout';
-import { Head, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { Head, useForm, usePage } from '@inertiajs/react';
+import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 import admin from '@/routes/admin';
 import { type BreadcrumbItem } from '@/types';
+import InputError from '@/components/input-error';
 
 interface AppSetting {
     id: number;
@@ -47,6 +49,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function SettingsIndex({ settings }: Props) {
+    const { flash } = usePage().props as { flash?: { success?: string; error?: string } };
     const { data, setData, put, processing, errors } = useForm({
         // Application Information
         app_name: settings.app_name || '',
@@ -88,6 +91,16 @@ export default function SettingsIndex({ settings }: Props) {
 
     const [activeTab, setActiveTab] = useState('web-setup');
 
+    // Show toast notifications for flash messages
+    useEffect(() => {
+        if (flash?.success) {
+            toast.success(flash.success);
+        }
+        if (flash?.error) {
+            toast.error(flash.error);
+        }
+    }, [flash]);
+
     const addPhoneNumber = () => {
         setData('phone_numbers', [...(data.phone_numbers || []), '']);
     };
@@ -126,7 +139,10 @@ export default function SettingsIndex({ settings }: Props) {
             preserveScroll: true,
             forceFormData: true,
             onSuccess: () => {
-                // Show success message
+                toast.success('Settings updated successfully.');
+            },
+            onError: () => {
+                toast.error('Failed to update settings. Please check the form for errors.');
             },
         });
     };
@@ -158,20 +174,18 @@ export default function SettingsIndex({ settings }: Props) {
                                 
                                 <div className="grid gap-4">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="app_name">App Name</Label>
+                                        <Label htmlFor="app_name">App Name <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="app_name"
                                             value={data.app_name}
                                             onChange={(e) => setData('app_name', e.target.value)}
                                             placeholder="Trading Chart"
                                         />
-                                        {errors.app_name && (
-                                            <p className="text-sm text-red-500">{errors.app_name}</p>
-                                        )}
+                                        <InputError message={errors.app_name} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="logo">Logo</Label>
+                                        <Label htmlFor="logo">Logo <span className="text-muted-foreground">(optional)</span></Label>
                                         {data.logo_url && (
                                             <div className="mb-2">
                                                 <img 
@@ -192,13 +206,11 @@ export default function SettingsIndex({ settings }: Props) {
                                                 }
                                             }}
                                         />
-                                        {errors.logo && (
-                                            <p className="text-sm text-red-500">{errors.logo}</p>
-                                        )}
+                                        <InputError message={errors.logo} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="mobile_logo">Mobile Logo</Label>
+                                        <Label htmlFor="mobile_logo">Mobile Logo <span className="text-muted-foreground">(optional)</span></Label>
                                         {data.mobile_logo_url && (
                                             <div className="mb-2">
                                                 <img 
@@ -219,13 +231,11 @@ export default function SettingsIndex({ settings }: Props) {
                                                 }
                                             }}
                                         />
-                                        {errors.mobile_logo && (
-                                            <p className="text-sm text-red-500">{errors.mobile_logo}</p>
-                                        )}
+                                        <InputError message={errors.mobile_logo} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="app_description">App Description</Label>
+                                        <Label htmlFor="app_description">App Description <span className="text-muted-foreground">(optional)</span></Label>
                                         <Textarea
                                             id="app_description"
                                             value={data.app_description}
@@ -233,13 +243,11 @@ export default function SettingsIndex({ settings }: Props) {
                                             placeholder="Brief description of your application"
                                             rows={4}
                                         />
-                                        {errors.app_description && (
-                                            <p className="text-sm text-red-500">{errors.app_description}</p>
-                                        )}
+                                        <InputError message={errors.app_description} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="app_information">App Information (for modal)</Label>
+                                        <Label htmlFor="app_information">App Information (for modal) <span className="text-muted-foreground">(optional)</span></Label>
                                         <Textarea
                                             id="app_information"
                                             value={data.app_information}
@@ -247,22 +255,18 @@ export default function SettingsIndex({ settings }: Props) {
                                             placeholder="Detailed information about your application that will be displayed in the info modal"
                                             rows={6}
                                         />
-                                        {errors.app_information && (
-                                            <p className="text-sm text-red-500">{errors.app_information}</p>
-                                        )}
+                                        <InputError message={errors.app_information} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="copyright_text">Copyright Text</Label>
+                                        <Label htmlFor="copyright_text">Copyright Text <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="copyright_text"
                                             value={data.copyright_text}
                                             onChange={(e) => setData('copyright_text', e.target.value)}
                                             placeholder="© 2024 Trading Chart. All rights reserved."
                                         />
-                                        {errors.copyright_text && (
-                                            <p className="text-sm text-red-500">{errors.copyright_text}</p>
-                                        )}
+                                        <InputError message={errors.copyright_text} />
                                     </div>
                                 </div>
                             </div>
@@ -272,7 +276,7 @@ export default function SettingsIndex({ settings }: Props) {
                                 
                                 <div className="grid gap-4">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="facebook_url">Facebook URL</Label>
+                                        <Label htmlFor="facebook_url">Facebook URL <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="facebook_url"
                                             type="url"
@@ -280,13 +284,11 @@ export default function SettingsIndex({ settings }: Props) {
                                             onChange={(e) => setData('facebook_url', e.target.value)}
                                             placeholder="https://facebook.com/yourpage"
                                         />
-                                        {errors.facebook_url && (
-                                            <p className="text-sm text-red-500">{errors.facebook_url}</p>
-                                        )}
+                                        <InputError message={errors.facebook_url} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="twitter_url">Twitter URL</Label>
+                                        <Label htmlFor="twitter_url">Twitter URL <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="twitter_url"
                                             type="url"
@@ -294,13 +296,11 @@ export default function SettingsIndex({ settings }: Props) {
                                             onChange={(e) => setData('twitter_url', e.target.value)}
                                             placeholder="https://twitter.com/yourhandle"
                                         />
-                                        {errors.twitter_url && (
-                                            <p className="text-sm text-red-500">{errors.twitter_url}</p>
-                                        )}
+                                        <InputError message={errors.twitter_url} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="instagram_url">Instagram URL</Label>
+                                        <Label htmlFor="instagram_url">Instagram URL <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="instagram_url"
                                             type="url"
@@ -308,13 +308,11 @@ export default function SettingsIndex({ settings }: Props) {
                                             onChange={(e) => setData('instagram_url', e.target.value)}
                                             placeholder="https://instagram.com/yourhandle"
                                         />
-                                        {errors.instagram_url && (
-                                            <p className="text-sm text-red-500">{errors.instagram_url}</p>
-                                        )}
+                                        <InputError message={errors.instagram_url} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="linkedin_url">LinkedIn URL</Label>
+                                        <Label htmlFor="linkedin_url">LinkedIn URL <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="linkedin_url"
                                             type="url"
@@ -322,13 +320,11 @@ export default function SettingsIndex({ settings }: Props) {
                                             onChange={(e) => setData('linkedin_url', e.target.value)}
                                             placeholder="https://linkedin.com/company/yourcompany"
                                         />
-                                        {errors.linkedin_url && (
-                                            <p className="text-sm text-red-500">{errors.linkedin_url}</p>
-                                        )}
+                                        <InputError message={errors.linkedin_url} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="youtube_url">YouTube URL</Label>
+                                        <Label htmlFor="youtube_url">YouTube URL <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="youtube_url"
                                             type="url"
@@ -336,9 +332,7 @@ export default function SettingsIndex({ settings }: Props) {
                                             onChange={(e) => setData('youtube_url', e.target.value)}
                                             placeholder="https://youtube.com/@yourchannel"
                                         />
-                                        {errors.youtube_url && (
-                                            <p className="text-sm text-red-500">{errors.youtube_url}</p>
-                                        )}
+                                        <InputError message={errors.youtube_url} />
                                     </div>
                                 </div>
                             </div>
@@ -348,7 +342,7 @@ export default function SettingsIndex({ settings }: Props) {
                                 
                                 <div className="grid gap-4">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="email">Email</Label>
+                                        <Label htmlFor="email">Email <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="email"
                                             type="email"
@@ -356,14 +350,12 @@ export default function SettingsIndex({ settings }: Props) {
                                             onChange={(e) => setData('email', e.target.value)}
                                             placeholder="tradingchart@gmail.com"
                                         />
-                                        {errors.email && (
-                                            <p className="text-sm text-red-500">{errors.email}</p>
-                                        )}
+                                        <InputError message={errors.email} />
                                     </div>
 
                                     <div className="grid gap-2">
                                         <div className="flex items-center justify-between">
-                                            <Label>Phone Numbers</Label>
+                                            <Label>Phone Numbers <span className="text-muted-foreground">(optional)</span></Label>
                                             <Button
                                                 type="button"
                                                 variant="outline"
@@ -392,13 +384,11 @@ export default function SettingsIndex({ settings }: Props) {
                                                 )}
                                             </div>
                                         ))}
-                                        {errors.phone_numbers && (
-                                            <p className="text-sm text-red-500">{errors.phone_numbers}</p>
-                                        )}
+                                        <InputError message={errors.phone_numbers} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="address">Address</Label>
+                                        <Label htmlFor="address">Address <span className="text-muted-foreground">(optional)</span></Label>
                                         <Textarea
                                             id="address"
                                             value={data.address}
@@ -406,9 +396,7 @@ export default function SettingsIndex({ settings }: Props) {
                                             placeholder="Your business address"
                                             rows={3}
                                         />
-                                        {errors.address && (
-                                            <p className="text-sm text-red-500">{errors.address}</p>
-                                        )}
+                                        <InputError message={errors.address} />
                                     </div>
                                 </div>
                             </div>
@@ -418,7 +406,7 @@ export default function SettingsIndex({ settings }: Props) {
                                 
                                 <div className="grid gap-4">
                                     <div className="flex items-center justify-between">
-                                        <Label>Footer Quick Links</Label>
+                                        <Label>Footer Quick Links <span className="text-muted-foreground">(optional)</span></Label>
                                         <Button
                                             type="button"
                                             variant="outline"
@@ -433,12 +421,12 @@ export default function SettingsIndex({ settings }: Props) {
                                             <Input
                                                 value={link.label}
                                                 onChange={(e) => updateQuickLink(index, 'label', e.target.value)}
-                                                placeholder="Link Label"
+                                                placeholder="Link Label (required)"
                                             />
                                             <Input
                                                 value={link.href}
                                                 onChange={(e) => updateQuickLink(index, 'href', e.target.value)}
-                                                placeholder="/link-path"
+                                                placeholder="/link-path (required)"
                                             />
                                             {data.quick_links && data.quick_links.length > 1 && (
                                                 <Button
@@ -452,9 +440,7 @@ export default function SettingsIndex({ settings }: Props) {
                                             )}
                                         </div>
                                     ))}
-                                    {errors.quick_links && (
-                                        <p className="text-sm text-red-500">{errors.quick_links}</p>
-                                    )}
+                                    <InputError message={errors.quick_links} />
                                 </div>
                             </div>
                         </TabsContent>
@@ -466,55 +452,47 @@ export default function SettingsIndex({ settings }: Props) {
                                 
                                 <div className="grid gap-4">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="timezone">Timezone</Label>
+                                        <Label htmlFor="timezone">Timezone <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="timezone"
                                             value={data.timezone}
                                             onChange={(e) => setData('timezone', e.target.value)}
                                             placeholder="UTC"
                                         />
-                                        {errors.timezone && (
-                                            <p className="text-sm text-red-500">{errors.timezone}</p>
-                                        )}
+                                        <InputError message={errors.timezone} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="locale">Locale</Label>
+                                        <Label htmlFor="locale">Locale <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="locale"
                                             value={data.locale}
                                             onChange={(e) => setData('locale', e.target.value)}
                                             placeholder="en"
                                         />
-                                        {errors.locale && (
-                                            <p className="text-sm text-red-500">{errors.locale}</p>
-                                        )}
+                                        <InputError message={errors.locale} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="currency">Currency</Label>
+                                        <Label htmlFor="currency">Currency <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="currency"
                                             value={data.currency}
                                             onChange={(e) => setData('currency', e.target.value)}
                                             placeholder="USD"
                                         />
-                                        {errors.currency && (
-                                            <p className="text-sm text-red-500">{errors.currency}</p>
-                                        )}
+                                        <InputError message={errors.currency} />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="currency_symbol">Currency Symbol</Label>
+                                        <Label htmlFor="currency_symbol">Currency Symbol <span className="text-muted-foreground">(optional)</span></Label>
                                         <Input
                                             id="currency_symbol"
                                             value={data.currency_symbol}
                                             onChange={(e) => setData('currency_symbol', e.target.value)}
                                             placeholder="$"
                                         />
-                                        {errors.currency_symbol && (
-                                            <p className="text-sm text-red-500">{errors.currency_symbol}</p>
-                                        )}
+                                        <InputError message={errors.currency_symbol} />
                                     </div>
                                 </div>
                             </div>
@@ -527,7 +505,7 @@ export default function SettingsIndex({ settings }: Props) {
                                 
                                 <div className="grid gap-4">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="environment">Environment</Label>
+                                        <Label htmlFor="environment">Environment <span className="text-muted-foreground">(optional)</span></Label>
                                         <select
                                             id="environment"
                                             value={data.environment}
@@ -538,9 +516,7 @@ export default function SettingsIndex({ settings }: Props) {
                                             <option value="staging">Staging</option>
                                             <option value="production">Production</option>
                                         </select>
-                                        {errors.environment && (
-                                            <p className="text-sm text-red-500">{errors.environment}</p>
-                                        )}
+                                        <InputError message={errors.environment} />
                                     </div>
 
                                     <div className="flex items-center gap-2">
@@ -551,12 +527,12 @@ export default function SettingsIndex({ settings }: Props) {
                                             onChange={(e) => setData('maintenance_mode', e.target.checked)}
                                             className="h-4 w-4 rounded border-gray-300"
                                         />
-                                        <Label htmlFor="maintenance_mode">Maintenance Mode</Label>
+                                        <Label htmlFor="maintenance_mode">Maintenance Mode <span className="text-muted-foreground">(optional)</span></Label>
                                     </div>
 
                                     {data.maintenance_mode && (
                                         <div className="grid gap-2">
-                                            <Label htmlFor="maintenance_message">Maintenance Message</Label>
+                                            <Label htmlFor="maintenance_message">Maintenance Message <span className="text-muted-foreground">(optional)</span></Label>
                                             <Textarea
                                                 id="maintenance_message"
                                                 value={data.maintenance_message}
@@ -564,9 +540,7 @@ export default function SettingsIndex({ settings }: Props) {
                                                 placeholder="We are currently performing maintenance. Please check back soon."
                                                 rows={4}
                                             />
-                                            {errors.maintenance_message && (
-                                                <p className="text-sm text-red-500">{errors.maintenance_message}</p>
-                                            )}
+                                            <InputError message={errors.maintenance_message} />
                                         </div>
                                     )}
                                 </div>
