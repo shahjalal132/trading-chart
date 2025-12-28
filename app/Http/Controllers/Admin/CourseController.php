@@ -11,12 +11,30 @@ class CourseController extends Controller
 {
     public function index(Request $request)
     {
-        $courses = Course::with('author')
-            ->latest()
-            ->paginate(15)
-            ->withQueryString();
+        $query = Course::with('author');
+
+        // Apply search filter
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('slug', 'like', "%{$search}%")
+                    ->orWhereHas('author', function ($authorQuery) use ($search) {
+                        $authorQuery->where('name', 'like', "%{$search}%")
+                            ->orWhere('email', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        $courses = $query->latest()->paginate(15)->withQueryString();
         
-        return Inertia::render('admin/courses/index', ['courses' => $courses]);
+        return Inertia::render('admin/courses/index', [
+            'courses' => $courses,
+            'filters' => [
+                'search' => $request->search,
+            ],
+        ]);
     }
 
     public function create()

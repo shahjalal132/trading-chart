@@ -1,8 +1,15 @@
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Link } from '@inertiajs/react';
-import { Star, Calendar, User, DollarSign, Edit } from 'lucide-react';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import admin from '@/routes/admin';
+import { Link } from '@inertiajs/react';
+import { Calendar, DollarSign, Edit, Eye, Star, User } from 'lucide-react';
 
 interface Course {
     id: number;
@@ -46,22 +53,22 @@ export default function CourseCard({ course }: CourseCardProps) {
 
     const getImageUrl = () => {
         if (course.thumbnail_url) {
-            return course.thumbnail_url.startsWith('http') 
-                ? course.thumbnail_url 
+            return course.thumbnail_url.startsWith('http')
+                ? course.thumbnail_url
                 : `/storage/${course.thumbnail_url}`;
         }
         return '/assets/images/book-placeholder.jpg';
     };
 
     return (
-        <Card className="p-3 overflow-hidden">
+        <Card className="overflow-hidden p-3">
             <div className="flex flex-col md:flex-row">
                 {/* Thumbnail */}
-                <div className="relative h-48 w-full md:h-auto md:w-64 flex-shrink-0">
+                <div className="relative h-48 w-full flex-shrink-0 md:h-auto md:w-64">
                     <img
                         src={getImageUrl()}
                         alt={course.title}
-                        className="h-full w-full object-cover rounded-lg"
+                        className="h-full w-full rounded-lg object-cover"
                     />
                     {course.published_at ? (
                         <span className="absolute top-2 right-2 rounded-full bg-green-500 px-2 py-1 text-xs font-medium text-white">
@@ -79,7 +86,9 @@ export default function CourseCard({ course }: CourseCardProps) {
                     <CardHeader>
                         <div className="flex items-start justify-between">
                             <div className="flex-1">
-                                <CardTitle className="text-xl">{course.title}</CardTitle>
+                                <CardTitle className="text-xl">
+                                    {course.title}
+                                </CardTitle>
                                 {course.description && (
                                     <CardDescription className="mt-2 line-clamp-2">
                                         {course.description}
@@ -95,8 +104,12 @@ export default function CourseCard({ course }: CourseCardProps) {
                                 <div className="flex items-center gap-2">
                                     <User className="h-4 w-4 text-muted-foreground" />
                                     <div className="flex flex-col">
-                                        <span className="text-xs text-muted-foreground">Author</span>
-                                        <span className="text-sm font-medium">{course.author.name}</span>
+                                        <span className="text-xs text-muted-foreground">
+                                            Author
+                                        </span>
+                                        <span className="text-sm font-medium">
+                                            {course.author.name}
+                                        </span>
                                     </div>
                                 </div>
                             )}
@@ -104,8 +117,12 @@ export default function CourseCard({ course }: CourseCardProps) {
                             <div className="flex items-center gap-2">
                                 <DollarSign className="h-4 w-4 text-muted-foreground" />
                                 <div className="flex flex-col">
-                                    <span className="text-xs text-muted-foreground">Price</span>
-                                    <span className="text-sm font-medium">{formatPrice(course.price)}</span>
+                                    <span className="text-xs text-muted-foreground">
+                                        Price
+                                    </span>
+                                    <span className="text-sm font-medium">
+                                        {formatPrice(course.price)}
+                                    </span>
                                 </div>
                             </div>
 
@@ -113,20 +130,29 @@ export default function CourseCard({ course }: CourseCardProps) {
                                 <div className="flex items-center gap-2">
                                     <Calendar className="h-4 w-4 text-muted-foreground" />
                                     <div className="flex flex-col">
-                                        <span className="text-xs text-muted-foreground">Start Date</span>
-                                        <span className="text-sm font-medium">{formatDate(course.start_date)}</span>
+                                        <span className="text-xs text-muted-foreground">
+                                            Start Date
+                                        </span>
+                                        <span className="text-sm font-medium">
+                                            {formatDate(course.start_date)}
+                                        </span>
                                     </div>
                                 </div>
                             )}
 
                             <div className="flex items-center gap-2">
-                                <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                                <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
                                 <div className="flex flex-col">
-                                    <span className="text-xs text-muted-foreground">Rating</span>
+                                    <span className="text-xs text-muted-foreground">
+                                        Rating
+                                    </span>
                                     <span className="text-sm font-medium">
-                                        {course.rating ? course.rating : 'N/A'} 
+                                        {course.rating ? course.rating : 'N/A'}
                                         {course.total_reviews > 0 && (
-                                            <span className="text-muted-foreground"> ({course.total_reviews})</span>
+                                            <span className="text-muted-foreground">
+                                                {' '}
+                                                ({course.total_reviews})
+                                            </span>
                                         )}
                                     </span>
                                 </div>
@@ -136,17 +162,29 @@ export default function CourseCard({ course }: CourseCardProps) {
 
                     <CardFooter className="flex items-center justify-between border-t pt-4">
                         <div className="text-sm text-muted-foreground">
-                            Created {formatDate(course.published_at || course.start_date)}
+                            Created{' '}
+                            {formatDate(
+                                course.published_at || course.start_date,
+                            )}
                         </div>
                         <div className="flex gap-2">
                             <Button variant="outline" size="sm" asChild>
-                                <Link href={admin.courses.edit.url({ course: course.id })}>
+                                <Link
+                                    href={admin.courses.edit.url({
+                                        course: course.id,
+                                    })}
+                                >
                                     <Edit className="mr-2 h-4 w-4" />
                                     Edit
                                 </Link>
                             </Button>
                             <Button variant="outline" size="sm" asChild>
-                                <Link href={admin.courses.show.url({ course: course.id })}>
+                                <Link
+                                    href={admin.courses.show.url({
+                                        course: course.id,
+                                    })}
+                                >
+                                    <Eye />
                                     View
                                 </Link>
                             </Button>
@@ -157,4 +195,3 @@ export default function CourseCard({ course }: CourseCardProps) {
         </Card>
     );
 }
-
