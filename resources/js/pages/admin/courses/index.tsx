@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import CourseCard from '@/components/admin/CourseCard';
+import Pagination, { type PaginationData } from '@/components/pagination';
 import AppSidebarLayout from '@/layouts/app/app-sidebar-layout';
 import { Head, Link } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
@@ -28,11 +29,7 @@ interface Course {
 interface Props {
     courses: {
         data: Course[];
-        current_page: number;
-        last_page: number;
-        per_page: number;
-        total: number;
-    };
+    } & PaginationData;
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -43,6 +40,13 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function CoursesIndex({ courses }: Props) {
+
+    console.log(`courses: ${courses}`);
+    console.log(`courses.data: ${courses.data}`);
+    console.log(`courses.current_page: ${courses.current_page}`);
+    console.log(`courses.last_page: ${courses.last_page}`);
+    console.log(`courses.per_page: ${courses.per_page}`);
+    console.log(`courses.total: ${courses.total}`);
 
     return (
         <AppSidebarLayout breadcrumbs={breadcrumbs}>
@@ -76,40 +80,20 @@ export default function CoursesIndex({ courses }: Props) {
                     </div>
                 )}
 
-                {/* Pagination */}
-                {courses.last_page > 1 && (
-                    <div className="mt-6 flex items-center justify-center gap-2">
-                        <Button
-                            variant="outline"
-                            disabled={courses.current_page === 1}
-                            asChild
-                        >
-                            <Link
-                                href={admin.courses.index.url({
-                                    query: { page: courses.current_page - 1 },
-                                })}
-                            >
-                                Previous
-                            </Link>
-                        </Button>
-                        <span className="text-sm text-muted-foreground">
-                            Page {courses.current_page} of {courses.last_page}
-                        </span>
-                        <Button
-                            variant="outline"
-                            disabled={courses.current_page === courses.last_page}
-                            asChild
-                        >
-                            <Link
-                                href={admin.courses.index.url({
-                                    query: { page: courses.current_page + 1 },
-                                })}
-                            >
-                                Next
-                            </Link>
-                        </Button>
-                    </div>
-                )}
+                <Pagination
+                    pagination={{
+                        current_page: courses.current_page,
+                        last_page: courses.last_page,
+                        per_page: courses.per_page,
+                        total: courses.total,
+                    }}
+                    getPageUrl={(page) =>
+                        admin.courses.index.url({
+                            query: { page },
+                        })
+                    }
+                    itemLabel="courses"
+                />
             </div>
         </AppSidebarLayout>
     );
