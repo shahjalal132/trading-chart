@@ -23,10 +23,14 @@ interface Course {
     rating: number | null;
     total_reviews: number;
     published_at: string | null;
-    author: {
+    instructor: {
         id: number;
         name: string;
-        email: string;
+        user?: {
+            id: number;
+            name: string;
+            email: string;
+        } | null;
     } | null;
 }
 
@@ -64,7 +68,7 @@ export default function CourseCard({ course }: CourseCardProps) {
         <Card className="overflow-hidden p-3">
             <div className="flex flex-col md:flex-row">
                 {/* Thumbnail */}
-                <div className="relative h-48 w-full flex-shrink-0 md:h-auto md:w-64">
+                <div className="relative h-48 w-full shrink-0 md:h-auto md:w-64">
                     <img
                         src={getImageUrl()}
                         alt={course.title}
@@ -100,15 +104,15 @@ export default function CourseCard({ course }: CourseCardProps) {
 
                     <CardContent className="py-3">
                         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                            {course.author && (
+                            {course.instructor && (
                                 <div className="flex items-center gap-2">
                                     <User className="h-4 w-4 text-muted-foreground" />
                                     <div className="flex flex-col">
                                         <span className="text-xs text-muted-foreground">
-                                            Author
+                                            Instructor
                                         </span>
                                         <span className="text-sm font-medium">
-                                            {course.author.name}
+                                            {course.instructor.user?.name || course.instructor.name}
                                         </span>
                                     </div>
                                 </div>

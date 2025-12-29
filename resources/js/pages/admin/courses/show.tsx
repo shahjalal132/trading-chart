@@ -7,10 +7,14 @@ import admin from '@/routes/admin';
 import { type BreadcrumbItem } from '@/types';
 import { router } from '@inertiajs/react';
 
-interface Author {
+interface Instructor {
     id: number;
     name: string;
-    email: string;
+    user?: {
+        id: number;
+        name: string;
+        email: string;
+    } | null;
 }
 
 interface Course {
@@ -28,7 +32,7 @@ interface Course {
     rating: number | null;
     total_reviews: number;
     published_at: string | null;
-    author: Author | null;
+    instructor: Instructor | null;
     modules?: Array<{ id: number; title: string }>;
     learningObjectives?: Array<{ id: number; objective: string }>;
     reviews?: Array<{ id: number; rating: number; comment: string }>;
@@ -234,15 +238,19 @@ export default function ShowCourse({ course }: Props) {
                                     </div>
                                 </div>
 
-                                {course.author && (
+                                {course.instructor && (
                                     <div className="flex items-center gap-3">
                                         <User className="h-5 w-5 text-muted-foreground" />
                                         <div>
-                                            <p className="text-sm text-muted-foreground">Author</p>
-                                            <p className="font-semibold">{course.author.name}</p>
-                                            <p className="text-xs text-muted-foreground">
-                                                {course.author.email}
+                                            <p className="text-sm text-muted-foreground">Instructor</p>
+                                            <p className="font-semibold">
+                                                {course.instructor.user?.name || course.instructor.name}
                                             </p>
+                                            {course.instructor.user?.email && (
+                                                <p className="text-xs text-muted-foreground">
+                                                    {course.instructor.user.email}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
                                 )}

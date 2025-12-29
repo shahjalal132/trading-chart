@@ -13,7 +13,7 @@ class CourseController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Course::with('author');
+        $query = Course::with('instructor.user');
 
         // Apply search filter
         if ($request->has('search') && $request->search) {
@@ -22,14 +22,18 @@ class CourseController extends Controller
                 $q->where('title', 'like', "%{$search}%")
                     ->orWhere('description', 'like', "%{$search}%")
                     ->orWhere('slug', 'like', "%{$search}%")
-                    ->orWhereHas('author', function ($authorQuery) use ($search) {
-                        $authorQuery->where('name', 'like', "%{$search}%")
-                            ->orWhere('email', 'like', "%{$search}%");
+                    ->orWhereHas('instructor', function ($instructorQuery) use ($search) {
+                        $instructorQuery->where('name', 'like', "%{$search}%")
+                            ->orWhereHas('user', function ($userQuery) use ($search) {
+                                $userQuery->where('name', 'like', "%{$search}%")
+                                    ->orWhere('email', 'like', "%{$search}%");
+                            });
                     });
             });
         }
 
-        $courses = $query->latest()->paginate(15)->withQueryString();
+        $courses = $query->latest()->paginate(15)->appends($request->query());
+
         
         return Inertia::render('admin/courses/index', [
             'courses' => $courses,
@@ -41,10 +45,19 @@ class CourseController extends Controller
 
     public function create()
     {
-        $users = User::select('id', 'name', 'email')->orderBy('name')->get();
+        $instructors = \App\Models\Instructor::with('user:id,name,email')
+            ->orderBy('name')
+            ->get()
+            ->map(function ($instructor) {
+                return [
+                    'id' => $instructor->id,
+                    'name' => $instructor->user->name ?? $instructor->name,
+                    'email' => $instructor->user->email ?? null,
+                ];
+            });
         
         return Inertia::render('admin/courses/create', [
-            'users' => $users,
+            'instructors' => $instructors,
         ]);
     }
 
@@ -54,7 +67,7 @@ class CourseController extends Controller
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:courses',
             'description' => 'nullable|string',
-            'author_id' => 'required|exists:users,id',
+            'instructor_id' => 'required|exists:instructors,id',
             'price' => 'required|numeric|min:0',
             'thumbnail' => 'nullable|image|max:2048',
             'start_date' => 'nullable|date',
@@ -77,17 +90,26 @@ class CourseController extends Controller
 
     public function show(Course $course)
     {
-        $course->load(['author', 'modules.lessons', 'learningObjectives', 'reviews', 'faqs']);
+        $course->load(['instructor.user', 'modules.lessons', 'learningObjectives', 'reviews', 'faqs']);
         return Inertia::render('admin/courses/show', ['course' => $course]);
     }
 
     public function edit(Course $course)
     {
-        $users = User::select('id', 'name', 'email')->orderBy('name')->get();
+        $instructors = \App\Models\Instructor::with('user:id,name,email')
+            ->orderBy('name')
+            ->get()
+            ->map(function ($instructor) {
+                return [
+                    'id' => $instructor->id,
+                    'name' => $instructor->user->name ?? $instructor->name,
+                    'email' => $instructor->user->email ?? null,
+                ];
+            });
         
         return Inertia::render('admin/courses/edit', [
-            'course' => $course,
-            'users' => $users,
+            'course' => $course->load('instructor.user'),
+            'instructors' => $instructors,
         ]);
     }
 
@@ -97,7 +119,7 @@ class CourseController extends Controller
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:courses,slug,' . $course->id,
             'description' => 'nullable|string',
-            'author_id' => 'required|exists:users,id',
+            'instructor_id' => 'required|exists:instructors,id',
             'price' => 'required|numeric|min:0',
             'thumbnail' => 'nullable|image|max:2048',
             'start_date' => 'nullable|date',

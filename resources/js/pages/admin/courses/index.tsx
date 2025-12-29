@@ -21,10 +21,14 @@ interface Course {
     rating: number | null;
     total_reviews: number;
     published_at: string | null;
-    author: {
+    instructor: {
         id: number;
         name: string;
-        email: string;
+        user?: {
+            id: number;
+            name: string;
+            email: string;
+        } | null;
     } | null;
 }
 
@@ -74,7 +78,7 @@ export default function CoursesIndex({ courses, filters }: Props) {
                     preserveState: true,
                     preserveScroll: false,
                     replace: true,
-                }
+                },
             );
         }, 500); // 500ms debounce
 
@@ -117,11 +121,11 @@ export default function CoursesIndex({ courses, filters }: Props) {
                 <div className="mb-6 flex items-center justify-between">
                     <div></div>
                     <div className="relative w-full max-w-sm">
-                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             type="text"
                             placeholder="Search courses by title, description, or author..."
-                            className="w-full pl-10 pr-10"
+                            className="w-full pr-10 pl-10"
                             value={search}
                             onChange={handleSearchChange}
                         />
@@ -129,7 +133,7 @@ export default function CoursesIndex({ courses, filters }: Props) {
                             <button
                                 type="button"
                                 onClick={handleClearSearch}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+                                className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
                                 aria-label="Clear search"
                             >
                                 <X className="h-4 w-4" />

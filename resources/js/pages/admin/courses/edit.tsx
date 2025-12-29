@@ -16,10 +16,10 @@ import admin from '@/routes/admin';
 import { type BreadcrumbItem } from '@/types';
 import InputError from '@/components/input-error';
 
-interface User {
+interface Instructor {
     id: number;
     name: string;
-    email: string;
+    email: string | null;
 }
 
 interface Course {
@@ -29,7 +29,16 @@ interface Course {
     description: string | null;
     thumbnail_url: string | null;
     price: number;
-    author_id: number;
+    instructor_id: number;
+    instructor?: {
+        id: number;
+        name: string;
+        user?: {
+            id: number;
+            name: string;
+            email: string;
+        } | null;
+    } | null;
     start_date: string | null;
     end_date: string | null;
     start_time: string | null;
@@ -40,7 +49,7 @@ interface Course {
 
 interface Props {
     course: Course;
-    users: User[];
+    instructors: Instructor[];
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -54,7 +63,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function EditCourse({ course, users }: Props) {
+export default function EditCourse({ course, instructors }: Props) {
     const formatDateForInput = (date: string | null) => {
         if (!date) return '';
         return new Date(date).toISOString().split('T')[0];
@@ -81,7 +90,7 @@ export default function EditCourse({ course, users }: Props) {
         title: course.title || '',
         slug: course.slug || '',
         description: course.description || '',
-        author_id: course.author_id.toString(),
+        instructor_id: (course.instructor_id || course.instructor?.id || '').toString(),
         price: course.price.toString(),
         thumbnail: null as File | null,
         start_date: formatDateForInput(course.start_date),
@@ -184,26 +193,26 @@ export default function EditCourse({ course, users }: Props) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="author_id">
-                                    Author <span className="text-destructive">*</span>
+                                <Label htmlFor="instructor_id">
+                                    Instructor <span className="text-destructive">*</span>
                                 </Label>
                                 <Select
-                                    value={data.author_id}
-                                    onValueChange={(value) => setData('author_id', value)}
+                                    value={data.instructor_id}
+                                    onValueChange={(value) => setData('instructor_id', value)}
                                     required
                                 >
-                                    <SelectTrigger id="author_id">
-                                        <SelectValue placeholder="Select an author" />
+                                    <SelectTrigger id="instructor_id">
+                                        <SelectValue placeholder="Select an instructor" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {users.map((user) => (
-                                            <SelectItem key={user.id} value={user.id.toString()}>
-                                                {user.name} ({user.email})
+                                        {instructors.map((instructor) => (
+                                            <SelectItem key={instructor.id} value={instructor.id.toString()}>
+                                                {instructor.name} {instructor.email && `(${instructor.email})`}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
-                                <InputError message={errors.author_id} />
+                                <InputError message={errors.instructor_id} />
                             </div>
 
                             <div className="grid gap-2">

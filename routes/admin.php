@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AppSettingsController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard
-    Route::get('/', \App\Http\Controllers\Admin\AdminDashboardController::class)->name('dashboard');
+    Route::get('/', AdminDashboardController::class)->name('dashboard');
 
     // Courses
     Route::resource('courses', CourseController::class);
@@ -31,7 +32,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
     // Settings
-    Route::get('settings', [\App\Http\Controllers\Admin\AppSettingsController::class, 'index'])->name('settings.index');
-    Route::put('settings', [\App\Http\Controllers\Admin\AppSettingsController::class, 'update'])->name('settings.update');
+    Route::get('settings', [AppSettingsController::class, 'index'])->name('settings.index');
+    Route::put('settings', [AppSettingsController::class, 'update'])->name('settings.update');
 });
 

@@ -8,6 +8,7 @@
     "label": "Users",
     "icon": "users",
     "children": [
+      { "label": "All Users", "route": "/admin/users" },
       { "label": "Admins", "route": "/admin/users/admins" },
       { "label": "Instructors", "route": "/admin/users/instructors" },
       { "label": "Students", "route": "/admin/users/students" }
@@ -18,8 +19,7 @@
     "icon": "book-open",
     "children": [
       { "label": "All Courses", "route": "/admin/courses" },
-      { "label": "Pending Approval", "route": "/admin/courses/pending" },
-      { "label": "Published Courses", "route": "/admin/courses/published" }
+      { "label": "Create Course", "route": "/admin/courses/create" }
     ]
   },
   "enrollments": {
@@ -43,7 +43,6 @@
     "label": "Analytics",
     "icon": "bar-chart",
     "children": [
-      { "label": "Revenue", "route": "/admin/analytics/revenue" },
       { "label": "Top Courses", "route": "/admin/analytics/courses" },
       { "label": "User Growth", "route": "/admin/analytics/users" }
     ]
