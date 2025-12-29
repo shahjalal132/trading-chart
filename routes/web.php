@@ -26,13 +26,16 @@ Route::get('/checkout', function () {
     return Inertia::render('checkout');
 })->name('checkout');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', \App\Http\Controllers\Student\StudentDashboardController::class)->name('dashboard');
+    // TODO: Add student routes when controllers are created
+    // Route::get('/courses/{course}', \App\Http\Controllers\Student\CourseViewController::class);
+    // Route::get('/lessons/{lesson}', \App\Http\Controllers\Student\LessonWatchController::class);
+    // Route::get('/profile', \App\Http\Controllers\ProfileController::class);
 });
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/admin.php';
+require __DIR__ . '/instructor.php';
 require __DIR__ . '/Api/V1/routes.php';
 require __DIR__ . '/ai.php';

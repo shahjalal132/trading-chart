@@ -147,11 +147,12 @@ return [
         Features::registration(),
         Features::resetPasswords(),
         Features::emailVerification(),
-        Features::twoFactorAuthentication([
-            'confirm' => true,
-            'confirmPassword' => true,
-            // 'window' => 0
-        ]),
+        // 2FA disabled for development phase
+        // Features::twoFactorAuthentication([
+        //     'confirm' => true,
+        //     'confirmPassword' => true,
+        //     // 'window' => 0
+        // ]),
     ],
 
 ];

@@ -11,61 +11,15 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import admin from '@/routes/admin';
+import { convertMenuItemsToNavItems } from '@/lib/menu-utils';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import {
-    BookOpen,
-    Folder,
-    LayoutGrid,
-    Settings,
-    ShoppingCart,
-    Star,
-    Tag,
-    Users,
-} from 'lucide-react';
 import AppLogo from './app-logo';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: admin.dashboard.url(),
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Courses',
-        href: admin.courses.index.url(),
-        icon: BookOpen,
-    },
-    {
-        title: 'Users',
-        href: admin.users.index.url(),
-        icon: Users,
-    },
-    {
-        title: 'Orders',
-        href: admin.orders.index.url(),
-        icon: ShoppingCart,
-    },
-    {
-        title: 'Coupons',
-        href: admin.coupons.index.url(),
-        icon: Tag,
-    },
-    {
-        title: 'Reviews',
-        href: admin.reviews.index.url(),
-        icon: Star,
-    },
-    {
-        title: 'Settings',
-        href: admin.settings.index.url(),
-        icon: Settings,
-    },
-];
+// Convert menuItems.json to NavItem format
+const mainNavItems: NavItem[] = convertMenuItemsToNavItems();
 
-const footerNavItems: NavItem[] = [
-    
-];
+const footerNavItems: NavItem[] = [];
 
 export function AppSidebar() {
     return (

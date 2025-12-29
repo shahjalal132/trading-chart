@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['admin', 'instructor', 'student'])->default('student')->after('password');
+            $table->enum('role', ['admin', 'instructor', 'student'])->default('student')->after('password')->index();
             $table->string('avatar_url')->nullable()->after('role');
         });
     }

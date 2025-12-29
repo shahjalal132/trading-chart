@@ -1,0 +1,61 @@
+{
+  "dashboard": {
+    "label": "Dashboard",
+    "icon": "layout-dashboard",
+    "route": "/dashboard"
+  },
+  "users": {
+    "label": "Users",
+    "icon": "users",
+    "children": [
+      { "label": "Admins", "route": "/admin/users/admins" },
+      { "label": "Instructors", "route": "/admin/users/instructors" },
+      { "label": "Students", "route": "/admin/users/students" }
+    ]
+  },
+  "courses": {
+    "label": "Courses",
+    "icon": "book-open",
+    "children": [
+      { "label": "All Courses", "route": "/admin/courses" },
+      { "label": "Pending Approval", "route": "/admin/courses/pending" },
+      { "label": "Published Courses", "route": "/admin/courses/published" }
+    ]
+  },
+  "enrollments": {
+    "label": "Enrollments",
+    "icon": "graduation-cap",
+    "children": [
+      { "label": "All Enrollments", "route": "/admin/enrollments" }
+    ]
+  },
+  "orders": {
+    "label": "Orders & Payments",
+    "icon": "credit-card",
+    "children": [
+      { "label": "Orders", "route": "/admin/orders" },
+      { "label": "Payments", "route": "/admin/payments" },
+      { "label": "Invoices", "route": "/admin/invoices" },
+      { "label": "Coupons", "route": "/admin/coupons" }
+    ]
+  },
+  "analytics": {
+    "label": "Analytics",
+    "icon": "bar-chart",
+    "children": [
+      { "label": "Revenue", "route": "/admin/analytics/revenue" },
+      { "label": "Top Courses", "route": "/admin/analytics/courses" },
+      { "label": "User Growth", "route": "/admin/analytics/users" }
+    ]
+  },
+  "settings": {
+    "label": "Settings",
+    "icon": "settings",
+    "children": [
+      { "label": "General", "route": "/admin/settings/general" },
+      { "label": "Payments", "route": "/admin/settings/payments" },
+      { "label": "Notifications", "route": "/admin/settings/notifications" }
+    ]
+  }
+}
+

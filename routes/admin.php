@@ -8,9 +8,9 @@ use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard
-    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/', \App\Http\Controllers\Admin\AdminDashboardController::class)->name('dashboard');
 
     // Courses
     Route::resource('courses', CourseController::class);

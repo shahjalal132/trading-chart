@@ -16,10 +16,13 @@ export interface NavGroup {
 }
 
 export interface NavItem {
-    title: string;
-    href: NonNullable<InertiaLinkProps['href']>;
+    title?: string;
+    label?: string;
+    href?: NonNullable<InertiaLinkProps['href']>;
+    route?: string;
     icon?: LucideIcon | null;
     isActive?: boolean;
+    children?: NavItem[];
 }
 
 export interface AppSettings {
